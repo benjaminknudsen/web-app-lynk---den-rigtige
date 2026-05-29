@@ -1,3 +1,4 @@
+import { NavLink } from "react-router";
 import logo from "../assets/Frame 125.svg";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
@@ -239,10 +240,14 @@ export default function HomePage() {
       </main>
 
       <nav className="bottom-nav" aria-label="Primær navigation">
-        <button className="nav-item active">
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) => `nav-item${isActive ? " active" : ""}`}
+        >
           <span>🏠</span>
           <span>Udforsk</span>
-        </button>
+        </NavLink>
         <button className="nav-item">
           <span>🗓</span>
           <span>Mine events</span>
@@ -255,10 +260,13 @@ export default function HomePage() {
           <span>💬</span>
           <span>Beskeder</span>
         </button>
-        <button className="nav-item">
+        <NavLink
+          to="/profil"
+          className={({ isActive }) => `nav-item${isActive ? " active" : ""}`}
+        >
           <span>👤</span>
           <span>Profil</span>
-        </button>
+        </NavLink>
       </nav>
     </div>
   );
