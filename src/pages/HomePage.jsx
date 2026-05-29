@@ -102,7 +102,10 @@ export default function HomePage() {
       </header>
 
       <main className="home-main">
-        <section className="hero" style={{ backgroundImage: `url(${heroImageUrl})` }}>
+        <section
+          className="hero"
+          style={{ backgroundImage: `url(${heroImageUrl})` }}
+        >
           <div className="hero-content">
             <p className="hero-eyebrow">Velkommen tilbage</p>
             <h1>Benjamin</h1>
@@ -200,8 +203,8 @@ export default function HomePage() {
               <div>
                 <p className="stars">★★★★★</p>
                 <p className="quote">
-                  “Jeg fandt hurtigt nogle at spille padel med og er nu 2
-                  venner rigere!”
+                  “Jeg fandt hurtigt nogle at spille padel med og er nu 2 venner
+                  rigere!”
                 </p>
                 <p className="author">Sofie, Aarhus</p>
               </div>
