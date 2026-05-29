@@ -178,16 +178,24 @@ export default function HomePage() {
         </section>
 
         <article>
-          <h2>Displaying images in React</h2>
+          <h2>lynk</h2>
 
           <h3>1. Import from src/assets</h3>
           <img src={reactRouterLogo} alt="Example SVG" className="img-small" />
 
           <h3>2. Public folder</h3>
-          <img src={publicLogoUrl} alt="Logo from public folder" className="img-small" />
+          <img
+            src={publicLogoUrl}
+            alt="Logo from public folder"
+            className="img-small"
+          />
 
           <h3>3. External URL</h3>
-          <img src="https://picsum.photos/200" alt="Random external image" className="img-medium" />
+          <img
+            src="https://picsum.photos/200"
+            alt="Random external image"
+            className="img-medium"
+          />
         </article>
       </main>
     </>
@@ -310,7 +318,10 @@ export default function AboutPage() {
         <h1>About</h1>
       </header>
       <main className="about-container">
-        <p>We build modern web apps with React, clear branching, and structured Pull Requests.</p>
+        <p>
+          We build modern web apps with React, clear branching, and structured
+          Pull Requests.
+        </p>
 
         <section className="about-stats">
           <article className="stat">
@@ -772,7 +783,7 @@ Opdater `src/App.jsx`:
 ```jsx
 import ProductsPage from "./pages/ProductsPage";
 
-<Route path="/products" element={<ProductsPage />} />
+<Route path="/products" element={<ProductsPage />} />;
 ```
 
 Opdater `src/components/Navbar.jsx`:
