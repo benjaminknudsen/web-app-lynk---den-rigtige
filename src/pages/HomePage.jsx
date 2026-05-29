@@ -96,9 +96,9 @@ export default function HomePage() {
           <button className="icon-btn" aria-label="Notifikationer">
             🔔
           </button>
-          <div className="avatar" aria-hidden="true">
+          <NavLink to="/profil" className="avatar">
             BM
-          </div>
+          </NavLink>
         </div>
       </header>
 
