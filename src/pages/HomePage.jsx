@@ -29,7 +29,7 @@ const eventsNearby = [
     date: "Lør 24 Maj · 13:00",
     tag: "Fodbold",
     image:
-      "https://images.unsplash.com/photo-1508804185872-cd3ba9ca0f41?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&q=80",
     spots: "5 / 22",
   },
   {
@@ -40,6 +40,15 @@ const eventsNearby = [
     image:
       "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=600&q=80",
     spots: "3 / 14",
+  },
+  {
+    title: "Basket i parken",
+    location: "Aarhus",
+    date: "Tor 29 Maj · 17:30",
+    tag: "Basket",
+    image:
+      "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80",
+    spots: "6 / 12",
   },
 ];
 
@@ -71,7 +80,23 @@ const popularNow = [
       "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=600&q=80",
     spots: "3 / 4",
   },
+  {
+    title: "Morgenløb",
+    location: "Aarhus",
+    date: "Søn 16 Jun · 08:00",
+    tag: "Løb",
+    image:
+      "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=600&q=80",
+    spots: "8 / 15",
+  },
 ];
+
+const homeTagIcons = {
+  Fodbold: soccerIcon,
+  Løb: runIcon,
+  Padel: padelIcon,
+  Basket: basketIcon,
+};
 
 export default function HomePage() {
   return (
@@ -124,15 +149,35 @@ export default function HomePage() {
               <article className="event-card" key={event.title}>
                 <div className="card-image">
                   <img src={event.image} alt="" loading="lazy" />
-                  <span className="card-badge">{event.spots}</span>
+                  <span className="card-badge">
+                    <span className="people-icon" aria-hidden="true" />
+                    {event.spots}
+                  </span>
                 </div>
                 <div className="card-body">
                   <h3>{event.title}</h3>
                   <p className="meta">
-                    <span>📍 {event.location}</span>
-                    <span>🗓 {event.date}</span>
+                    <span>
+                      <span
+                        className="meta-icon location-icon"
+                        aria-hidden="true"
+                      />
+                      {event.location}
+                    </span>
+                    <span>
+                      <span
+                        className="meta-icon time-icon"
+                        aria-hidden="true"
+                      />
+                      {event.date}
+                    </span>
                   </p>
-                  <span className="tag">{event.tag}</span>
+                  <span className="tag">
+                    {homeTagIcons[event.tag] && (
+                      <img src={homeTagIcons[event.tag]} alt="" />
+                    )}
+                    {event.tag}
+                  </span>
                 </div>
               </article>
             ))}
@@ -143,37 +188,49 @@ export default function HomePage() {
           <h2>Sådan virker det</h2>
           <div className="steps">
             <div className="step">
-              <div className="step-icon">1</div>
+              <div className="step-visual">
+                <span className="step-number">1</span>
+                <span className="step-symbol search-symbol" aria-hidden="true" />
+              </div>
               <h3>Find</h3>
-              <p>Udforsk aktiviteter der passer til dig.</p>
+              <p>Udforsk aktiviteter der passer til dig</p>
             </div>
             <div className="step">
-              <div className="step-icon">2</div>
+              <div className="step-visual">
+                <span className="step-number">2</span>
+                <span className="step-symbol group-symbol" aria-hidden="true" />
+              </div>
               <h3>Join</h3>
-              <p>Tilmeld dig og mød nye mennesker.</p>
+              <p>Tilmeld dig og mød nye mennesker</p>
             </div>
             <div className="step">
-              <div className="step-icon">3</div>
+              <div className="step-visual">
+                <span className="step-number">3</span>
+                <span className="step-symbol shoe-symbol" aria-hidden="true" />
+              </div>
               <h3>Vær med</h3>
-              <p>Deltag, bliv en del af fællesskabet.</p>
+              <p>Deltag, hav det sjovt og bliv en del af fællesskabet</p>
             </div>
           </div>
         </section>
 
         <section className="section-block community">
           <div className="section-header">
-            <h2>Vores community ✨</h2>
+            <h2>Vores community <span aria-hidden="true">🔥</span></h2>
           </div>
           <div className="stat-grid">
             <div className="stat-card">
+              <span className="community-icon community-users" aria-hidden="true" />
               <h3>3.287</h3>
-              <p>Aktive brugere</p>
+              <p>Aktive brugere i denne uge</p>
             </div>
             <div className="stat-card">
+              <span className="community-icon community-ball" aria-hidden="true" />
               <h3>82</h3>
               <p>Aktiviteter oprettet i dag</p>
             </div>
             <div className="stat-card">
+              <span className="community-icon community-star" aria-hidden="true" />
               <h3>4.9 / 5</h3>
               <p>Gennemsnitlig bedømmelse</p>
             </div>
@@ -183,7 +240,7 @@ export default function HomePage() {
               <div className="testimonial-avatar">
                 <img src={sofieAarhus} alt="Sofie" />
               </div>
-              <div>
+              <div className="testimonial-copy">
                 <p className="stars">★★★★★</p>
                 <p className="quote">
                   “Jeg fandt hurtigt nogle at spille padel med og er nu 2 venner
@@ -207,15 +264,35 @@ export default function HomePage() {
               <article className="event-card" key={event.title}>
                 <div className="card-image">
                   <img src={event.image} alt="" loading="lazy" />
-                  <span className="card-badge">{event.spots}</span>
+                  <span className="card-badge">
+                    <span className="people-icon" aria-hidden="true" />
+                    {event.spots}
+                  </span>
                 </div>
                 <div className="card-body">
                   <h3>{event.title}</h3>
                   <p className="meta">
-                    <span>📍 {event.location}</span>
-                    <span>🗓 {event.date}</span>
+                    <span>
+                      <span
+                        className="meta-icon location-icon"
+                        aria-hidden="true"
+                      />
+                      {event.location}
+                    </span>
+                    <span>
+                      <span
+                        className="meta-icon time-icon"
+                        aria-hidden="true"
+                      />
+                      {event.date}
+                    </span>
                   </p>
-                  <span className="tag">{event.tag}</span>
+                  <span className="tag">
+                    {homeTagIcons[event.tag] && (
+                      <img src={homeTagIcons[event.tag]} alt="" />
+                    )}
+                    {event.tag}
+                  </span>
                 </div>
               </article>
             ))}
