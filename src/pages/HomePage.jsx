@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import logo from "../assets/Frame 125.svg";
+import logo from "../assets/frame125.svg";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import padelIcon from "../assets/Vector.svg";
