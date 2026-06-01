@@ -3,7 +3,10 @@ import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import padelIcon from "../assets/Vector.svg";
 import basketIcon from "../assets/carbon_basketball.svg";
+import graphIcon from "../assets/graf.png";
+import fireIcon from "../assets/gronild.png";
 import heroImage from "../assets/image 28.png";
+import lightningIcon from "../assets/lyn.png";
 import sofieAarhus from "../assets/sofieaarhus.png";
 
 const categories = [
@@ -91,12 +94,92 @@ const popularNow = [
   },
 ];
 
+const spontaneousToday = [
+  {
+    title: "Løbetur - 5-7 km",
+    location: "Aarhus",
+    date: "I dag · 16:30",
+    tag: "Løb",
+    image:
+      "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=600&q=80",
+    spots: "2 / 8",
+    startsIn: "1 t. 10 Min",
+  },
+  {
+    title: "Fodbold på kunst",
+    location: "Aarhus",
+    date: "I dag · 15:45",
+    tag: "Fodbold",
+    image:
+      "https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=600&q=80",
+    spots: "9 / 14",
+    startsIn: "45 Min",
+  },
+  {
+    title: "Padel drop-in",
+    location: "Aarhus",
+    date: "I dag · 17:00",
+    tag: "Padel",
+    image:
+      "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=600&q=80",
+    spots: "2 / 4",
+    startsIn: "1 t. 40 Min",
+  },
+  {
+    title: "Basket efter skole",
+    location: "Aarhus",
+    date: "I dag · 18:00",
+    tag: "Basket",
+    image:
+      "https://images.unsplash.com/photo-1519861531473-9200262188bf?auto=format&fit=crop&w=600&q=80",
+    spots: "6 / 10",
+    startsIn: "2 t.",
+  },
+];
+
 const homeTagIcons = {
   Fodbold: soccerIcon,
   Løb: runIcon,
   Padel: padelIcon,
   Basket: basketIcon,
 };
+
+function EventCard({ event }) {
+  return (
+    <article className="event-card">
+      <div className="card-image">
+        <img src={event.image} alt="" loading="lazy" />
+        <span className="card-badge">
+          <span className="people-icon" aria-hidden="true" />
+          {event.spots}
+        </span>
+        {event.startsIn && (
+          <span className="time-badge">
+            <span className="time-badge-icon" aria-hidden="true" />
+            {event.startsIn}
+          </span>
+        )}
+      </div>
+      <div className="card-body">
+        <h3>{event.title}</h3>
+        <p className="meta">
+          <span>
+            <span className="meta-icon location-icon" aria-hidden="true" />
+            {event.location}
+          </span>
+          <span>
+            <span className="meta-icon time-icon" aria-hidden="true" />
+            {event.date}
+          </span>
+        </p>
+        <span className="tag">
+          {homeTagIcons[event.tag] && <img src={homeTagIcons[event.tag]} alt="" />}
+          {event.tag}
+        </span>
+      </div>
+    </article>
+  );
+}
 
 export default function HomePage() {
   return (
@@ -146,40 +229,32 @@ export default function HomePage() {
           </div>
           <div className="card-grid">
             {eventsNearby.map((event) => (
-              <article className="event-card" key={event.title}>
-                <div className="card-image">
-                  <img src={event.image} alt="" loading="lazy" />
-                  <span className="card-badge">
-                    <span className="people-icon" aria-hidden="true" />
-                    {event.spots}
-                  </span>
-                </div>
-                <div className="card-body">
-                  <h3>{event.title}</h3>
-                  <p className="meta">
-                    <span>
-                      <span
-                        className="meta-icon location-icon"
-                        aria-hidden="true"
-                      />
-                      {event.location}
-                    </span>
-                    <span>
-                      <span
-                        className="meta-icon time-icon"
-                        aria-hidden="true"
-                      />
-                      {event.date}
-                    </span>
-                  </p>
-                  <span className="tag">
-                    {homeTagIcons[event.tag] && (
-                      <img src={homeTagIcons[event.tag]} alt="" />
-                    )}
-                    {event.tag}
-                  </span>
-                </div>
-              </article>
+              <EventCard event={event} key={event.title} />
+            ))}
+          </div>
+        </section>
+
+        <section className="section-block spontaneous-section">
+          <div className="section-header spontaneous-header">
+            <div>
+              <h2>
+                <img
+                  src={lightningIcon}
+                  alt=""
+                  className="section-title-icon lightning-title-icon"
+                  aria-hidden="true"
+                />
+                Spontane aktiviteter idag
+              </h2>
+              <p>Starter indenfor 2 timer</p>
+            </div>
+            <NavLink to="/events" className="link-btn">
+              Se alle
+            </NavLink>
+          </div>
+          <div className="card-grid">
+            {spontaneousToday.map((event) => (
+              <EventCard event={event} key={event.title} />
             ))}
           </div>
         </section>
@@ -216,7 +291,15 @@ export default function HomePage() {
 
         <section className="section-block community">
           <div className="section-header">
-            <h2>Vores community <span aria-hidden="true">🔥</span></h2>
+            <h2>
+              Vores community
+              <img
+                src={fireIcon}
+                alt=""
+                className="section-title-icon fire-title-icon"
+                aria-hidden="true"
+              />
+            </h2>
           </div>
           <div className="stat-grid">
             <div className="stat-card">
@@ -254,47 +337,22 @@ export default function HomePage() {
 
         <section className="section-block">
           <div className="section-header">
-            <h2>Populært lige nu</h2>
+            <h2>
+              <img
+                src={graphIcon}
+                alt=""
+                className="section-title-icon graph-title-icon"
+                aria-hidden="true"
+              />
+              Populært lige nu
+            </h2>
             <NavLink to="/events" className="link-btn">
               Se alle
             </NavLink>
           </div>
           <div className="card-grid">
             {popularNow.map((event) => (
-              <article className="event-card" key={event.title}>
-                <div className="card-image">
-                  <img src={event.image} alt="" loading="lazy" />
-                  <span className="card-badge">
-                    <span className="people-icon" aria-hidden="true" />
-                    {event.spots}
-                  </span>
-                </div>
-                <div className="card-body">
-                  <h3>{event.title}</h3>
-                  <p className="meta">
-                    <span>
-                      <span
-                        className="meta-icon location-icon"
-                        aria-hidden="true"
-                      />
-                      {event.location}
-                    </span>
-                    <span>
-                      <span
-                        className="meta-icon time-icon"
-                        aria-hidden="true"
-                      />
-                      {event.date}
-                    </span>
-                  </p>
-                  <span className="tag">
-                    {homeTagIcons[event.tag] && (
-                      <img src={homeTagIcons[event.tag]} alt="" />
-                    )}
-                    {event.tag}
-                  </span>
-                </div>
-              </article>
+              <EventCard event={event} key={event.title} />
             ))}
           </div>
         </section>
