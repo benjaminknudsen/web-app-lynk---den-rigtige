@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router";
+import { Route, Routes, useLocation } from "react-router";
 import AppHeader from "./components/AppHeader";
 import BottomNav from "./components/BottomNav";
 import HomePage from "./pages/HomePage";
@@ -12,9 +12,12 @@ import MessagesPage from "./pages/MessagesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 export default function App() {
+  const location = useLocation();
+  const hideAppHeader = location.pathname === "/profil";
+
   return (
     <>
-      <AppHeader />
+      {!hideAppHeader && <AppHeader />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
