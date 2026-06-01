@@ -364,6 +364,120 @@ nav {
   font-weight: 600;
 }
 
+.events-page,
+.profile-page,
+.home-page {
+  padding-bottom: 4rem;
+}
+
+.page-header {
+  padding: 1.5rem 1.25rem 0.75rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 1.8rem;
+}
+
+.page-header p {
+  margin: 0.5rem 0 0;
+  color: var(--text-muted);
+}
+
+.events-form,
+.events-list {
+  padding: 0 1.25rem 1.25rem;
+}
+
+.events-form form {
+  display: grid;
+  gap: 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 24px;
+  padding: 1.25rem;
+}
+
+.events-form label {
+  display: grid;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.events-form input {
+  width: 100%;
+  border: 1px solid var(--border-soft);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+}
+
+.events-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.button-row {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #ff6b6b;
+  margin: 0;
+}
+
+.event-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.event-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+.event-content p {
+  margin: 0.3rem 0;
+  color: var(--text-muted);
+}
+
+.event-actions {
+  display: flex;
+  gap: 0.65rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.event-actions button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  border-radius: 14px;
+  padding: 0.65rem 0.9rem;
+  cursor: pointer;
+}
+
+.event-actions button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .how-it-works {
   background: rgba(20, 28, 29, 0.75);
   border-radius: 20px;
@@ -900,6 +1014,19 @@ step p {
   border-radius: 999px;
   font-size: 0.8rem;
   font-weight: 600;
+}
+
+.profile-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.profile-note {
+  margin: 0.6rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
 }
 
 .profile-list {
