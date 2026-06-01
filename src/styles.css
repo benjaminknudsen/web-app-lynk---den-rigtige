@@ -1,19 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-  --font-stack: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: #FFFFFF;
+  --font-stack:
+    "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  color: #ffffff;
   background-color: #0b1011;
   line-height: 1.5;
   font-weight: 400;
   --bg-primary: #0b1011;
   --bg-card: #141b1c;
   --bg-soft: #1b2426;
-  --text-primary: #FFFFFF;
-  --text-muted: rgba(255,255,255,0.55);
-  --text-muted-20: rgba(242,243,244,0.2);
-  --accent: #E7FA4F; /* Gul fra Figma */
-  --accent-strong: #C9ED3D;
+  --text-primary: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.55);
+  --text-muted-20: rgba(242, 243, 244, 0.2);
+  --accent: #e7fa4f; /* Gul fra Figma */
+  --accent-strong: #c9ed3d;
   --border-soft: rgba(255, 255, 255, 0.06);
   --shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
 }
@@ -29,7 +31,13 @@ body {
 }
 
 /* Ensure Inter is used everywhere */
-html, body, #root, input, button, textarea, select {
+html,
+body,
+#root,
+input,
+button,
+textarea,
+select {
   font-family: var(--font-stack);
 }
 
@@ -194,7 +202,15 @@ nav {
 }
 
 .hero h1 {
-  font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    "Inter",
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
   font-size: 1.9rem;
   margin: 0 0 0.35rem;
   font-weight: 700;
@@ -231,7 +247,15 @@ nav {
 
 .section-header h2,
 .section-block h2 {
-  font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    "Inter",
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
   font-size: 1.15rem;
   margin: 0;
 }
@@ -399,7 +423,15 @@ step p {
 
 .stat-card h3 {
   margin: 0 0 0.2rem;
-  font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    "Inter",
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
 }
 
 .stat-card p {
@@ -430,13 +462,19 @@ step p {
   border-radius: 8px;
   background: transparent;
   border: none;
-  color: #FFFFFF; /* force white chevron */
+  color: #ffffff; /* force white chevron */
   cursor: pointer;
   box-shadow: none;
 }
 
-.create-event .back-btn img { width: 20px; height: 20px; display:block; }
-.create-event .back-btn:hover { opacity: 0.95; }
+.create-event .back-btn img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+.create-event .back-btn:hover {
+  opacity: 0.95;
+}
 .create-event .title-wrap {
   display: block;
 }
@@ -457,7 +495,7 @@ step p {
   height: 30px;
   border-radius: 50%;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   display: grid;
   place-items: center;
   color: var(--text-primary);
@@ -467,8 +505,8 @@ step p {
   background: var(--accent);
   color: #07120c;
   font-weight: 700;
-  box-shadow: 0 10px 22px rgba(231,250,79,0.12);
-  border-color: rgba(231,250,79,0.22);
+  box-shadow: 0 10px 22px rgba(231, 250, 79, 0.12);
+  border-color: rgba(231, 250, 79, 0.22);
 }
 .create-event .choices {
   display: grid;
@@ -496,21 +534,28 @@ step p {
   place-items: center;
   background: transparent;
 }
-.create-event .choices .choice-icon img { width: 26px; height: 26px; filter: none; }
-.create-event .choice-label { font-size: 0.88rem; }
+.create-event .choices .choice-icon img {
+  width: 26px;
+  height: 26px;
+  filter: none;
+}
+.create-event .choice-label {
+  font-size: 0.88rem;
+}
 .create-event .choices button.active {
   /* keep background and text color, but show yellow stroke and subtle shadow */
   background: var(--bg-soft);
   color: var(--text-primary);
   border: 2px solid var(--accent);
-  box-shadow: 0 10px 22px rgba(231,250,79,0.08);
+  box-shadow: 0 10px 22px rgba(231, 250, 79, 0.08);
 }
 .create-event .choices button.active .choice-icon {
   background: transparent;
 }
 .create-event .choices button.active .choice-icon img {
   /* approximate yellow tint for SVG/PNG icons via filter */
-  filter: brightness(0) saturate(100%) invert(83%) sepia(13%) saturate(700%) hue-rotate(15deg) brightness(105%) contrast(92%);
+  filter: brightness(0) saturate(100%) invert(83%) sepia(13%) saturate(700%)
+    hue-rotate(15deg) brightness(105%) contrast(92%);
 }
 .create-event .choices button.active .choice-label {
   color: var(--accent);
@@ -523,7 +568,11 @@ step p {
 }
 
 /* Level / chips / participants */
-.level-row { display:flex; gap:8px; margin:10px 0 14px; }
+.level-row {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
 .level-btn {
   background: var(--bg-card);
   color: var(--text-muted);
@@ -531,20 +580,59 @@ step p {
   border-radius: 10px;
   border: 1px solid var(--border-soft);
   cursor: pointer;
-  font-weight:600;
+  font-weight: 600;
   display: inline-flex;
-  gap:8px;
+  gap: 8px;
   align-items: center;
 }
-.level-btn img { width:16px; height:16px; }
-.level-btn.active{ background: var(--bg-card); color: var(--accent); border: 2px solid var(--accent); box-shadow: 0 6px 14px rgba(231,250,79,0.06); }
-.level-btn svg { stroke: currentColor; color: inherit; }
-.level-btn.active svg { stroke: currentColor; color: inherit; filter: drop-shadow(0 2px 0 rgba(0,0,0,0.16)); }
+.level-btn img {
+  width: 16px;
+  height: 16px;
+}
+.level-btn.active {
+  background: var(--bg-card);
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  box-shadow: 0 6px 14px rgba(231, 250, 79, 0.06);
+}
+.level-btn svg {
+  stroke: currentColor;
+  color: inherit;
+}
+.level-btn.active svg {
+  stroke: currentColor;
+  color: inherit;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.16));
+}
 
-.chip { background: var(--bg-card); color: var(--text-primary); }
-.participants-row { display:flex; align-items:center; gap:10px; background:var(--bg-card); border:1px solid var(--border-soft); padding:10px; border-radius:12px; color:var(--text-primary); }
-.chip { display:inline-flex; align-items:center; gap:8px; background:var(--bg-soft); color:var(--text-primary); padding:6px 8px; border-radius:999px; border:1px solid var(--border-soft); }
-.chip .x { opacity:0.6; margin-left:6px; }
+.chip {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+.participants-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  padding: 10px;
+  border-radius: 12px;
+  color: var(--text-primary);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-soft);
+  color: var(--text-primary);
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+}
+.chip .x {
+  opacity: 0.6;
+  margin-left: 6px;
+}
 
 /* Calendar/time overlays */
 .overlay {
@@ -558,10 +646,25 @@ step p {
   padding: 12px;
   z-index: 80;
 }
-.calendar-grid { display:grid; grid-template-columns: repeat(7,1fr); gap:6px; }
-.calendar-day { padding:8px; text-align:center; border-radius:8px; color:var(--text-primary); }
-.calendar-day.today{ border:1px solid rgba(255,255,255,0.04); }
-.calendar-day.selected{ background:var(--accent); color:#07120c; font-weight:700; }
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.calendar-day {
+  padding: 8px;
+  text-align: center;
+  border-radius: 8px;
+  color: var(--text-primary);
+}
+.calendar-day.today {
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+.calendar-day.selected {
+  background: var(--accent);
+  color: #07120c;
+  font-weight: 700;
+}
 
 .create-event .row-field {
   position: relative;
@@ -596,7 +699,9 @@ step p {
   color: var(--text-primary);
   font-weight: 700;
 }
-.create-event .row-field .value { color: var(--text-primary); }
+.create-event .row-field .value {
+  color: var(--text-primary);
+}
 .create-event .row-field .chev {
   position: absolute;
   right: 12px;
@@ -614,7 +719,10 @@ step p {
   background: var(--bg-card);
   color: var(--text-primary);
 }
-.create-event .review p { margin: 8px 0; color: var(--text-primary); }
+.create-event .review p {
+  margin: 8px 0;
+  color: var(--text-primary);
+}
 
 .create-event footer {
   position: fixed;
@@ -636,8 +744,15 @@ step p {
   font-weight: 700;
   text-align: center;
 }
-.create-event .actions { display:flex; gap:12px; }
-.create-event .actions button { flex:1; padding:12px 14px; border-radius:10px; }
+.create-event .actions {
+  display: flex;
+  gap: 12px;
+}
+.create-event .actions button {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 10px;
+}
 
 .map-thumb img,
 .event-banner img {
@@ -647,8 +762,6 @@ step p {
   border-radius: 12px;
   border: 1px solid var(--border-soft);
 }
-
-
 
 .testimonial {
   margin-top: 1rem;
@@ -720,7 +833,15 @@ step p {
 
 .profile-header h1 {
   margin: 0 0 0.3rem;
-  font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    "Inter",
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
   font-size: 1.6rem;
 }
 

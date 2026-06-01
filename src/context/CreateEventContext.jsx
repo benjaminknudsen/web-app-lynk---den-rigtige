@@ -44,6 +44,7 @@ export function CreateEventProvider({ children }) {
 
 export function useCreateEvent() {
   const ctx = useContext(CreateEventContext);
-  if (!ctx) throw new Error("useCreateEvent must be used within CreateEventProvider");
+  if (!ctx)
+    throw new Error("useCreateEvent must be used within CreateEventProvider");
   return ctx;
 }

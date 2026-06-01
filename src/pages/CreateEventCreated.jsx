@@ -10,7 +10,9 @@ export default function CreateEventCreated() {
         <p>Dit event er nu synligt for andre brugere.</p>
       </main>
       <footer>
-        <NavLink to="/" className="primary-btn">Gå til dine events</NavLink>
+        <NavLink to="/" className="primary-btn">
+          Gå til dine events
+        </NavLink>
       </footer>
     </div>
   );

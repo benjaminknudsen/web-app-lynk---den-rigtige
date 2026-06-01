@@ -22,7 +22,20 @@ export default function CreateEventStep1() {
     <div className="create-event page">
       <div className="step-header">
         <button className="back-btn" onClick={() => navigate(-1)}>
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"><path d="M15 18l-6-6 6-6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M15 18l-6-6 6-6"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
         <div className="title-wrap">
           <h1>Opret event</h1>

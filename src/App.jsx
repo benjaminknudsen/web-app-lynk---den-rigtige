@@ -19,17 +19,17 @@ export default function App() {
       <Navbar />
       <CreateEventProvider>
         <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/profil" element={<ProfilePage />} />
-        <Route path="/opret" element={<CreateEventStep1 />} />
-        <Route path="/opret/step2" element={<CreateEventStep2 />} />
-        <Route path="/opret/step3" element={<CreateEventStep3 />} />
-        <Route path="/opret/step4" element={<CreateEventStep4 />} />
-        <Route path="/opret/loading" element={<CreateEventLoading />} />
-        <Route path="/opret/created" element={<CreateEventCreated />} />
-        <Route path="*" element={<NotFoundPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/profil" element={<ProfilePage />} />
+          <Route path="/opret" element={<CreateEventStep1 />} />
+          <Route path="/opret/step2" element={<CreateEventStep2 />} />
+          <Route path="/opret/step3" element={<CreateEventStep3 />} />
+          <Route path="/opret/step4" element={<CreateEventStep4 />} />
+          <Route path="/opret/loading" element={<CreateEventLoading />} />
+          <Route path="/opret/created" element={<CreateEventCreated />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </CreateEventProvider>
     </>
