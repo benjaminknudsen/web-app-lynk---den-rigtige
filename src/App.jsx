@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import ProfilePage from "./pages/ProfilePage";
+import EventsPage from "./pages/EventsPage";
+import MineEventsPage from "./pages/MineEventsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 export default function App() {
@@ -15,6 +17,8 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/profil" element={<ProfilePage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/mineevents" element={<MineEventsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

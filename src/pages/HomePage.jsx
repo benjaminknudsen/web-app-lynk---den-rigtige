@@ -248,10 +248,13 @@ export default function HomePage() {
           <span>🏠</span>
           <span>Udforsk</span>
         </NavLink>
-        <button className="nav-item">
+        <NavLink
+          to="/mineevents"
+          className={({ isActive }) => `nav-item${isActive ? " active" : ""}`}
+        >
           <span>🗓</span>
           <span>Mine events</span>
-        </button>
+        </NavLink>
         <button className="nav-item">
           <span>＋</span>
           <span>Opret</span>
