@@ -1,3 +1,5 @@
+import profileImg from "../assets/profilbillede.png";
+
 export default function ProfilePage() {
   return (
     <div className="profile-page">
@@ -7,7 +9,9 @@ export default function ProfilePage() {
       </header>
 
       <section className="profile-card">
-        <div className="profile-avatar">BM</div>
+        <div className="profile-avatar">
+          <img src={profileImg} alt="Profil" />
+        </div>
         <div>
           <h2>Benjamin</h2>
           <p className="profile-meta">Aarhus - Medlem siden 2024</p>

@@ -1,5 +1,4 @@
 import { NavLink } from "react-router";
-import logo from "../assets/frame125.svg";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import padelIcon from "../assets/Vector.svg";
@@ -76,30 +75,6 @@ const popularNow = [
 export default function HomePage() {
   return (
     <div className="home-page">
-      <header className="home-header">
-        <div className="logo-wrap">
-          <img src={logo} alt="Lynk" className="logo" />
-        </div>
-        <div className="search-wrap">
-          <span className="search-icon" aria-hidden="true">
-            🔎
-          </span>
-          <input
-            type="search"
-            placeholder="Søg efter events..."
-            aria-label="Søg efter events"
-          />
-        </div>
-        <div className="header-actions">
-          <button className="icon-btn" aria-label="Notifikationer">
-            🔔
-          </button>
-          <NavLink to="/profil" className="avatar">
-            BM
-          </NavLink>
-        </div>
-      </header>
-
       <main className="home-main">
         <section
           className="hero"
@@ -111,14 +86,18 @@ export default function HomePage() {
             <p className="hero-subtitle">
               Se populære aktiviteter og events nær dig
             </p>
-            <button className="primary-btn">Udforsk events</button>
+            <NavLink to="/events" className="primary-btn">
+              Udforsk events
+            </NavLink>
           </div>
         </section>
 
         <section className="section-block">
           <div className="section-header">
             <h2>Kategorier</h2>
-            <button className="link-btn">Se alle</button>
+            <NavLink to="/events" className="link-btn">
+              Se alle
+            </NavLink>
           </div>
           <div className="category-row">
             {categories.map((category) => (
@@ -135,7 +114,9 @@ export default function HomePage() {
         <section className="section-block">
           <div className="section-header">
             <h2>Nærliggende events</h2>
-            <button className="link-btn">Se alle</button>
+            <NavLink to="/events" className="link-btn">
+              Se alle
+            </NavLink>
           </div>
           <div className="card-grid">
             {eventsNearby.map((event) => (
@@ -214,7 +195,9 @@ export default function HomePage() {
         <section className="section-block">
           <div className="section-header">
             <h2>Populært lige nu</h2>
-            <button className="link-btn">Se alle</button>
+            <NavLink to="/events" className="link-btn">
+              Se alle
+            </NavLink>
           </div>
           <div className="card-grid">
             {popularNow.map((event) => (
