@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { supabase } from "../lib/supabaseClient";
 
@@ -17,16 +17,7 @@ export default function CreateEventPage() {
   const [loading, setLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
-  useEffect(() => {
-    if (eventId) {
-      loadEvent(eventId);
-    } else {
-      setEditMode(false);
-      setForm({ title: "", location: "", date: "", tag: "" });
-    }
-  }, [eventId]);
-
-  async function loadEvent(id) {
+  const loadEvent = useCallback(async (id) => {
     setLoading(true);
 
     let { data, error } = await supabase
@@ -59,7 +50,18 @@ export default function CreateEventPage() {
     });
     setEditMode(true);
     setLoading(false);
-  }
+  }, []);
+
+  useEffect(() => {
+    void Promise.resolve().then(() => {
+      if (eventId) {
+        loadEvent(eventId);
+      } else {
+        setEditMode(false);
+        setForm({ title: "", location: "", date: "", tag: "" });
+      }
+    });
+  }, [eventId, loadEvent]);
 
   async function handleSubmit(event) {
     event.preventDefault();

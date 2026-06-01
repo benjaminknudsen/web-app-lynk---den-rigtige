@@ -86,6 +86,7 @@ export default function MineEventsPage() {
             ))}
           </div>
         )}
+        {error && <p className="error-message">{error}</p>}
       </section>
     </div>
   );
