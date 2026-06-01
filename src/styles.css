@@ -543,8 +543,11 @@ nav {
 }
 
 .bottom-nav {
-  position: sticky;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 0;
+  width: min(430px, 100%);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.2rem;
@@ -552,6 +555,10 @@ nav {
   background: rgba(9, 13, 13, 0.98);
   border-top: 1px solid var(--border-soft);
   z-index: 30;
+}
+
+main {
+  padding-bottom: 5.5rem;
 }
 
 .nav-item {
