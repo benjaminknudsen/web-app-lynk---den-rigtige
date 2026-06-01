@@ -4,6 +4,7 @@ import runIcon from "../assets/tabler_run.svg";
 import padelIcon from "../assets/Vector.svg";
 import basketIcon from "../assets/carbon_basketball.svg";
 import heroImage from "../assets/image 28.png";
+import sofieAarhus from "../assets/sofieaarhus.png";
 
 const categories = [
   { name: "Fodbold", icon: soccerIcon },
@@ -179,7 +180,9 @@ export default function HomePage() {
           </div>
           <div className="testimonial">
             <div className="testimonial-header">
-              <div className="avatar small">SV</div>
+              <div className="testimonial-avatar">
+                <img src={sofieAarhus} alt="Sofie" />
+              </div>
               <div>
                 <p className="stars">★★★★★</p>
                 <p className="quote">
