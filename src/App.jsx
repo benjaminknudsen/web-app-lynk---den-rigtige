@@ -6,6 +6,7 @@ import ContactPage from "./pages/ContactPage";
 import ProfilePage from "./pages/ProfilePage";
 import EventsPage from "./pages/EventsPage";
 import MineEventsPage from "./pages/MineEventsPage";
+import CreateEventPage from "./pages/CreateEventPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/profil" element={<ProfilePage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/mineevents" element={<MineEventsPage />} />
+        <Route path="/opret" element={<CreateEventPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
