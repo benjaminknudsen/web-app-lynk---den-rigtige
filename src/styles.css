@@ -571,6 +571,7 @@ main {
   gap: 0.2rem;
   font-size: 0.72rem;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .nav-item span:first-child {

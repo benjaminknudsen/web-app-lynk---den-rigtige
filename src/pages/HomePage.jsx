@@ -4,9 +4,7 @@ import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import padelIcon from "../assets/Vector.svg";
 import basketIcon from "../assets/carbon_basketball.svg";
-
-const heroImageUrl =
-  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80";
+import heroImage from "../assets/image 28.png";
 
 const categories = [
   { name: "Fodbold", icon: soccerIcon },
@@ -105,7 +103,7 @@ export default function HomePage() {
       <main className="home-main">
         <section
           className="hero"
-          style={{ backgroundImage: `url(${heroImageUrl})` }}
+          style={{ backgroundImage: `url(${heroImage})` }}
         >
           <div className="hero-content">
             <p className="hero-eyebrow">Velkommen tilbage</p>
