@@ -1,6 +1,8 @@
 import { NavLink } from "react-router";
 import logo from "../assets/frame125.svg";
+import bellIcon from "../assets/klokke.png";
 import profileImg from "../assets/profilbillede.png";
+import searchIcon from "../assets/søgefelt.png";
 
 export default function AppHeader() {
   return (
@@ -9,9 +11,7 @@ export default function AppHeader() {
         <img src={logo} alt="Lynk" className="logo" />
       </NavLink>
       <div className="search-wrap">
-        <span className="search-icon" aria-hidden="true">
-          🔎
-        </span>
+        <img src={searchIcon} alt="" className="search-icon" aria-hidden="true" />
         <input
           type="search"
           placeholder="Søg efter events..."
@@ -20,7 +20,7 @@ export default function AppHeader() {
       </div>
       <div className="header-actions">
         <button className="icon-btn" aria-label="Notifikationer">
-          🔔
+          <img src={bellIcon} alt="" className="header-icon" aria-hidden="true" />
         </button>
         <NavLink to="/profil" className="avatar avatar-img">
           <img src={profileImg} alt="Profil" />
