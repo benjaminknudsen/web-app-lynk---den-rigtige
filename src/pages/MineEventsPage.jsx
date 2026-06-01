@@ -44,7 +44,8 @@ export default function MineEventsPage() {
     }
 
     if (editId) {
-      const { error } = await supabase
+      // Try updating using common primary key column names (id or ID)
+      let res = await supabase
         .from("events")
         .update({
           title: form.title,
@@ -54,8 +55,21 @@ export default function MineEventsPage() {
         })
         .eq("id", editId);
 
-      if (error) {
-        setError(error.message);
+      // If no rows updated or an error, try alternate column name 'ID'
+      if ((res.error && !res.data) || (res.data && res.data.length === 0)) {
+        res = await supabase
+          .from("events")
+          .update({
+            title: form.title,
+            location: form.location,
+            date: form.date,
+            tag: form.tag,
+          })
+          .eq("ID", editId);
+      }
+
+      if (res.error) {
+        setError(res.error.message);
       } else {
         resetForm();
         fetchEvents();
@@ -96,7 +110,7 @@ export default function MineEventsPage() {
       date: item.date,
       tag: item.tag,
     });
-    setEditId(item.id);
+    setEditId(item.id ?? item.ID ?? null);
     setError("");
   }
 
