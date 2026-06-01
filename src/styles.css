@@ -3,10 +3,10 @@
 :root {
   font-family: "Work Sans", "Segoe UI", sans-serif;
   color: #eef5f2;
-  background-color: #0b1011;
+  background-color: #0d1315;
   line-height: 1.5;
   font-weight: 400;
-  --bg-primary: #0b1011;
+  --bg-primary: #0d1315;
   --bg-card: #141b1c;
   --bg-soft: #1b2426;
   --text-primary: #eef5f2;
@@ -24,7 +24,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, #121a1b 0%, #0b1011 55%);
+  background: radial-gradient(circle at top, #121a1b 0%, #0d1315 55%);
 }
 
 #root {
