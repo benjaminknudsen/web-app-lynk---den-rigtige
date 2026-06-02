@@ -437,6 +437,15 @@ nav {
   height: 0.7rem;
 }
 
+.card-badge .badge-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  object-fit: contain;
+  display: inline;
+  max-width: unset;
+}
+
 .spontaneous-section {
   gap: 1rem;
 }
@@ -1036,6 +1045,13 @@ nav {
     linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
     linear-gradient(155deg, var(--accent), #38c7c6) border-box;
   border: 2px solid transparent;
+  overflow: hidden;
+}
+
+.step-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .step-number {
@@ -1201,6 +1217,12 @@ nav {
   justify-content: center;
   gap: 0.45rem;
   text-align: center;
+}
+
+.stat-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .stat-card h3 {

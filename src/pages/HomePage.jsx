@@ -6,7 +6,14 @@ import basketIcon from "../assets/carbon_basketball.svg";
 import graphIcon from "../assets/graf.png";
 import fireIcon from "../assets/gronild.png";
 import heroImage from "../assets/image 28.png";
+import findIcon from "../assets/find.png";
+import joinIcon from "../assets/join.png";
+import vaermedIcon from "../assets/vaermed.png";
 import lightningIcon from "../assets/lyn.png";
+import aktivebrugereIcon from "../assets/aktivebrugere.png";
+import antaldeltagereIcon from "../assets/antaldeltagere.png";
+import aktiviteteroprettetIcon from "../assets/aktivivteteroprettet.png";
+import bedømmelseIcon from "../assets/bedommelse.png";
 import sofieAarhus from "../assets/sofieaarhus.png";
 
 const categories = [
@@ -150,7 +157,7 @@ function EventCard({ event }) {
       <div className="card-image">
         <img src={event.image} alt="" loading="lazy" />
         <span className="card-badge">
-          <span className="people-icon" aria-hidden="true" />
+          <img src={antaldeltagereIcon} alt="" className="badge-icon" />
           {event.spots}
         </span>
         {event.startsIn && (
@@ -264,24 +271,21 @@ export default function HomePage() {
           <div className="steps">
             <div className="step">
               <div className="step-visual">
-                <span className="step-number">1</span>
-                <span className="step-symbol search-symbol" aria-hidden="true" />
+                <img src={findIcon} alt="" className="step-img" />
               </div>
               <h3>Find</h3>
               <p>Udforsk aktiviteter der passer til dig</p>
             </div>
             <div className="step">
               <div className="step-visual">
-                <span className="step-number">2</span>
-                <span className="step-symbol group-symbol" aria-hidden="true" />
+                <img src={joinIcon} alt="" className="step-img" />
               </div>
               <h3>Join</h3>
               <p>Tilmeld dig og mød nye mennesker</p>
             </div>
             <div className="step">
               <div className="step-visual">
-                <span className="step-number">3</span>
-                <span className="step-symbol shoe-symbol" aria-hidden="true" />
+                <img src={vaermedIcon} alt="" className="step-img" />
               </div>
               <h3>Vær med</h3>
               <p>Deltag, hav det sjovt og bliv en del af fællesskabet</p>
@@ -303,17 +307,17 @@ export default function HomePage() {
           </div>
           <div className="stat-grid">
             <div className="stat-card">
-              <span className="community-icon community-users" aria-hidden="true" />
+              <img src={aktivebrugereIcon} alt="" className="stat-icon" />
               <h3>3.287</h3>
               <p>Aktive brugere i denne uge</p>
             </div>
             <div className="stat-card">
-              <span className="community-icon community-ball" aria-hidden="true" />
+              <img src={aktiviteteroprettetIcon} alt="" className="stat-icon" />
               <h3>82</h3>
               <p>Aktiviteter oprettet i dag</p>
             </div>
             <div className="stat-card">
-              <span className="community-icon community-star" aria-hidden="true" />
+              <img src={bedømmelseIcon} alt="" className="stat-icon" />
               <h3>4.9 / 5</h3>
               <p>Gennemsnitlig bedømmelse</p>
             </div>
