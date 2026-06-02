@@ -150,8 +150,8 @@ const participantImages = [
   "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80",
 ];
 
-function normalizeTag(tag = "") {
-  return tag.trim().toLowerCase();
+function normalizeTag(tag) {
+  return String(tag ?? "").trim().toLowerCase();
 }
 
 function getEventImage(item) {
