@@ -154,6 +154,7 @@ export default function MineEventsPage() {
             {events.map((item) => {
               const dateParts = getEventDateParts(item.date);
               const tag = normalizeTag(item.tag);
+              const detailPath = `/events/${item.id ?? item.ID}`;
 
               return (
                 <article
@@ -161,11 +162,12 @@ export default function MineEventsPage() {
                   className="mine-event-row"
                   role="link"
                   tabIndex={0}
-                  onClick={() => navigate(`/events/${item.id ?? item.ID}`)}
+                  aria-label={`Åbn ${item.title}`}
+                  onClick={() => navigate(detailPath)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
                       event.preventDefault();
-                      navigate(`/events/${item.id ?? item.ID}`);
+                      navigate(detailPath);
                     }
                   }}
                 >

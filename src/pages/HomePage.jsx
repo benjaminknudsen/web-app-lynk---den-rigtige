@@ -25,6 +25,7 @@ const categories = [
 
 const eventsNearby = [
   {
+    id: "demo-run-10k",
     title: "Løbetur - 10 km",
     location: "Aarhus",
     date: "Man 26 Maj · 18:30",
@@ -34,6 +35,7 @@ const eventsNearby = [
     spots: "4 / 10",
   },
   {
+    id: "demo-fodboldhygge",
     title: "Fodboldhygge",
     location: "Aarhus",
     date: "Lør 24 Maj · 13:00",
@@ -43,6 +45,7 @@ const eventsNearby = [
     spots: "5 / 22",
   },
   {
+    id: "demo-padel-for-alle",
     title: "Padel for alle",
     location: "Aarhus",
     date: "Ons 28 Maj · 19:30",
@@ -52,6 +55,7 @@ const eventsNearby = [
     spots: "3 / 14",
   },
   {
+    id: "demo-basket-i-parken",
     title: "Basket i parken",
     location: "Aarhus",
     date: "Tor 29 Maj · 17:30",
@@ -64,6 +68,7 @@ const eventsNearby = [
 
 const popularNow = [
   {
+    id: "demo-10k-pace",
     title: "10k @ 5:00",
     location: "Aarhus",
     date: "Tir 13 Jun · 17:00",
@@ -73,6 +78,7 @@ const popularNow = [
     spots: "7 / 10",
   },
   {
+    id: "demo-11v11-aalborg",
     title: "11v11 Aalborg",
     location: "Aalborg",
     date: "Tir 18 Jun · 19:00",
@@ -82,6 +88,7 @@ const popularNow = [
     spots: "19 / 22",
   },
   {
+    id: "demo-mangler-1",
     title: "Mangler 1",
     location: "Aarhus",
     date: "Fre 14 Jun · 18:30",
@@ -91,6 +98,7 @@ const popularNow = [
     spots: "3 / 4",
   },
   {
+    id: "demo-morgenlob",
     title: "Morgenløb",
     location: "Aarhus",
     date: "Søn 16 Jun · 08:00",
@@ -103,6 +111,7 @@ const popularNow = [
 
 const spontaneousToday = [
   {
+    id: "demo-lobetur-5-7",
     title: "Løbetur - 5-7 km",
     location: "Aarhus",
     date: "I dag · 16:30",
@@ -113,6 +122,7 @@ const spontaneousToday = [
     startsIn: "1 t. 10 Min",
   },
   {
+    id: "demo-fodbold-kunst",
     title: "Fodbold på kunst",
     location: "Aarhus",
     date: "I dag · 15:45",
@@ -123,6 +133,7 @@ const spontaneousToday = [
     startsIn: "45 Min",
   },
   {
+    id: "demo-padel-drop-in",
     title: "Padel drop-in",
     location: "Aarhus",
     date: "I dag · 17:00",
@@ -133,6 +144,7 @@ const spontaneousToday = [
     startsIn: "1 t. 40 Min",
   },
   {
+    id: "demo-basket-efter-skole",
     title: "Basket efter skole",
     location: "Aarhus",
     date: "I dag · 18:00",
@@ -153,7 +165,7 @@ const homeTagIcons = {
 
 function EventCard({ event }) {
   return (
-    <article className="event-card">
+    <NavLink to={`/events/${event.id}`} className="event-card event-card-link">
       <div className="card-image">
         <img src={event.image} alt="" loading="lazy" />
         <span className="card-badge">
@@ -184,7 +196,7 @@ function EventCard({ event }) {
           {event.tag}
         </span>
       </div>
-    </article>
+    </NavLink>
   );
 }
 
