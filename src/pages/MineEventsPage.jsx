@@ -24,8 +24,8 @@ const tagIcons = {
   lob: runIcon,
 };
 
-function normalizeTag(tag = "") {
-  return tag.trim().toLowerCase();
+function normalizeTag(tag) {
+  return String(tag ?? "").trim().toLowerCase();
 }
 
 function getEventImage(item) {
