@@ -155,6 +155,15 @@ export default function MineEventsPage() {
                 <article
                   key={item.id ?? item.ID ?? item.title}
                   className="mine-event-row"
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => navigate(`/events/${item.id ?? item.ID}`)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      navigate(`/events/${item.id ?? item.ID}`);
+                    }
+                  }}
                 >
                   <div className="mine-event-date" aria-label={item.date}>
                     <span>{dateParts.weekday}</span>
@@ -173,12 +182,21 @@ export default function MineEventsPage() {
                     <div className="mine-event-title-row">
                       <h3>{item.title}</h3>
                       <div className="mine-event-menu" aria-label="Event actions">
-                        <button type="button" onClick={() => handleEdit(item)}>
+                        <button
+                          type="button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleEdit(item);
+                          }}
+                        >
                           Rediger
                         </button>
                         <button
                           type="button"
-                          onClick={() => handleDelete(item.id ?? item.ID)}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleDelete(item.id ?? item.ID);
+                          }}
                         >
                           Slet
                         </button>
