@@ -936,6 +936,230 @@ nav {
   border-color: var(--accent);
 }
 
+.events-form textarea {
+  width: 100%;
+  min-height: 7rem;
+  resize: vertical;
+  border: 1px solid var(--border-soft);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  font-family: inherit;
+}
+
+.events-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.create-event-page {
+  min-height: 100vh;
+  background: #0b1112;
+}
+
+.create-event-header {
+  padding: 1.55rem 1.25rem 0.4rem;
+  text-align: center;
+}
+
+.create-event-header h1 {
+  margin: 0;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.1;
+}
+
+.create-event-page .events-form {
+  padding-top: 0.8rem;
+}
+
+.create-event-page .events-form form {
+  gap: 1.4rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.step-indicator {
+  display: grid;
+  grid-template-columns: repeat(3, 2.1rem);
+  justify-content: center;
+  gap: 2rem;
+  position: relative;
+  margin: 0.25rem 0 1.25rem;
+}
+
+.step-indicator::before {
+  content: "";
+  position: absolute;
+  left: calc(50% - 5rem);
+  right: calc(50% - 5rem);
+  top: 50%;
+  height: 1px;
+  background: rgba(238, 245, 242, 0.22);
+  transform: translateY(-50%);
+}
+
+.step-indicator span {
+  position: relative;
+  z-index: 1;
+  width: 2.1rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(238, 245, 242, 0.34);
+  border-radius: 50%;
+  background: #0b1112;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.step-indicator span.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #071011;
+}
+
+.create-step {
+  display: grid;
+  gap: 1rem;
+}
+
+.create-step-copy {
+  display: grid;
+  gap: 0.3rem;
+  margin-bottom: 0.35rem;
+}
+
+.create-step-copy h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 1.35rem;
+  line-height: 1.12;
+}
+
+.create-step-copy p {
+  margin: 0;
+  color: rgba(238, 245, 242, 0.68);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.activity-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.activity-choice-grid button {
+  min-height: 7.1rem;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.75rem;
+  border: 1px solid rgba(238, 245, 242, 0.28);
+  border-radius: 12px;
+  background: rgba(16, 23, 24, 0.72);
+  color: var(--text-primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.activity-choice-grid button.selected,
+.level-choice-row button.selected {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.activity-choice-grid img {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(94%) sepia(12%) saturate(297%)
+    hue-rotate(112deg) brightness(103%) contrast(93%);
+}
+
+.activity-fallback-icon {
+  width: 2.25rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 2px solid rgba(238, 245, 242, 0.9);
+  color: var(--text-primary);
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 1.2rem;
+}
+
+.create-map-preview {
+  min-height: 7.9rem;
+  border-radius: 8px;
+  border: 1px solid rgba(238, 245, 242, 0.14);
+  background:
+    radial-gradient(circle at 58% 42%, #e34d42 0 0.42rem, transparent 0.45rem),
+    linear-gradient(28deg, transparent 0 43%, rgba(235, 221, 120, 0.85) 44% 48%, transparent 49%),
+    linear-gradient(150deg, rgba(93, 131, 80, 0.9), rgba(42, 80, 76, 0.9)),
+    repeating-linear-gradient(
+      24deg,
+      rgba(255, 255, 255, 0.16) 0 2px,
+      transparent 2px 28px
+    );
+  overflow: hidden;
+}
+
+.create-field-group {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.create-field-group > span {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.level-choice-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.level-choice-row button {
+  min-height: 2.75rem;
+  border: 1px solid rgba(238, 245, 242, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(238, 245, 242, 0.78);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.events-form label span,
+.events-form small {
+  color: rgba(238, 245, 242, 0.58);
+}
+
+.events-form small {
+  justify-self: end;
+  margin-top: -0.3rem;
+}
+
+.create-step-actions {
+  margin-top: 0.3rem;
+}
+
+.create-step-actions .primary-btn {
+  flex: 1;
+}
+
+.create-step-actions .secondary-btn {
+  min-width: 6.5rem;
+}
+
 .button-row {
   display: flex;
   gap: 0.9rem;
@@ -992,6 +1216,297 @@ nav {
 .event-actions button:hover {
   border-color: var(--accent);
   color: var(--accent);
+}
+
+.mine-events-page {
+  min-height: 100vh;
+  background: #0b1112;
+}
+
+.mine-events-header {
+  padding: 2.2rem 1rem 1.7rem;
+}
+
+.mine-events-header h1 {
+  margin: 0;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 2.35rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.mine-events-summary,
+.mine-created-events {
+  padding: 0 1rem;
+}
+
+.mine-events-section-header {
+  margin-bottom: 0.85rem;
+}
+
+.mine-events-section-header h2,
+.mine-created-events h2 {
+  margin: 0;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 1.55rem;
+  line-height: 1.1;
+}
+
+.mine-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.mine-stat-card {
+  min-height: 9.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.48rem;
+  padding: 0.9rem 0.85rem;
+  border: 1px solid rgba(92, 127, 134, 0.72);
+  border-radius: 14px;
+  background: rgba(0, 40, 42, 0.96);
+  box-shadow: inset 0 1px 0 rgba(238, 245, 242, 0.06);
+}
+
+.mine-stat-card-attending {
+  background: rgba(9, 42, 57, 0.98);
+  border-color: rgba(75, 111, 143, 0.82);
+}
+
+.mine-stat-card strong {
+  display: block;
+  color: var(--text-primary);
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 2.2rem;
+  line-height: 0.95;
+}
+
+.mine-stat-card p {
+  max-width: 8.7rem;
+  margin: 0;
+  color: rgba(238, 245, 242, 0.78);
+  font-size: 0.96rem;
+  line-height: 1.35;
+}
+
+.mine-calendar-icon {
+  position: relative;
+  width: 2.65rem;
+  height: 2.65rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(215, 242, 91, 0.2);
+  color: var(--accent);
+}
+
+.mine-stat-card-attending .mine-calendar-icon {
+  background: rgba(40, 139, 197, 0.34);
+  color: #eef5f2;
+}
+
+.mine-calendar-icon::before {
+  content: "";
+  width: 1.16rem;
+  height: 1.02rem;
+  border: 3px solid currentColor;
+  border-radius: 0.18rem;
+  background:
+    linear-gradient(currentColor, currentColor) 0.22rem 0.34rem / 0.88rem 2px
+      no-repeat,
+    linear-gradient(currentColor, currentColor) 0 0.48rem / 100% 3px no-repeat;
+}
+
+.mine-calendar-icon::after {
+  content: "";
+  position: absolute;
+  top: 0.9rem;
+  left: 0.91rem;
+  width: 0.16rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0.8rem 0 0 currentColor;
+}
+
+.mine-created-events {
+  margin-top: 2.25rem;
+  padding-bottom: 3.25rem;
+}
+
+.mine-created-list {
+  display: grid;
+  gap: 1.9rem;
+  margin-top: 1.35rem;
+}
+
+.mine-event-row {
+  display: grid;
+  grid-template-columns: 3.85rem minmax(5.8rem, 8.15rem) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.mine-event-date {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  color: var(--text-primary);
+  text-align: center;
+  line-height: 1;
+}
+
+.mine-event-date span {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.mine-event-date strong {
+  margin: 0.42rem 0 0.35rem;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 2.45rem;
+  line-height: 0.84;
+}
+
+.mine-event-image {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.mine-event-content {
+  min-width: 0;
+  display: grid;
+  gap: 0.48rem;
+}
+
+.mine-event-title-row {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 0.45rem;
+}
+
+.mine-event-title-row h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.mine-event-menu {
+  display: grid;
+  gap: 0.25rem;
+  justify-items: end;
+}
+
+.mine-event-menu button {
+  min-width: 3.6rem;
+  height: 1.35rem;
+  padding: 0 0.42rem;
+  border: 1px solid rgba(238, 245, 242, 0.2);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(238, 245, 242, 0.78);
+  font-size: 0.66rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mine-event-menu button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.mine-event-meta {
+  display: grid;
+  gap: 0.34rem;
+}
+
+.mine-event-meta p {
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgba(238, 245, 242, 0.63);
+  font-size: 0.92rem;
+  line-height: 1.15;
+}
+
+.mine-event-meta span:last-child {
+  min-width: 0;
+}
+
+.mine-event-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 0.2rem;
+}
+
+.mine-event-spots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgba(238, 245, 242, 0.68);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.mine-event-spots .people-icon {
+  color: var(--accent);
+}
+
+.mine-event-tag {
+  max-width: 6.2rem;
+  height: 1.42rem;
+  font-size: 0.74rem;
+}
+
+.mine-empty-state {
+  margin: 1.1rem 0 0;
+  color: rgba(238, 245, 242, 0.66);
+}
+
+@media (max-width: 380px) {
+  .mine-events-header h1 {
+    font-size: 2.05rem;
+  }
+
+  .mine-stat-card {
+    min-height: 8.55rem;
+    padding: 0.8rem 0.7rem;
+  }
+
+  .mine-stat-card p {
+    font-size: 0.96rem;
+  }
+
+  .mine-event-row {
+    grid-template-columns: 3rem minmax(4.75rem, 5.8rem) minmax(0, 1fr);
+    gap: 0.55rem;
+  }
+
+  .mine-event-date strong {
+    font-size: 2rem;
+  }
+
+  .mine-event-title-row h3 {
+    font-size: 0.88rem;
+  }
+
+  .mine-event-meta p,
+  .mine-event-spots,
+  .mine-event-tag {
+    font-size: 0.72rem;
+  }
 }
 
 .how-it-works {
