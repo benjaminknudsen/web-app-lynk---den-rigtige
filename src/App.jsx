@@ -6,6 +6,7 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import ProfilePage from "./pages/ProfilePage";
 import EventsPage from "./pages/EventsPage";
+import EventDetailPage from "./pages/EventDetailPage";
 import MineEventsPage from "./pages/MineEventsPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import MessagesPage from "./pages/MessagesPage";
@@ -13,7 +14,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 export default function App() {
   const location = useLocation();
-  const hideAppHeader = location.pathname === "/profil";
+  const hideAppHeader =
+    location.pathname === "/profil" || /^\/events\/[^/]+$/.test(location.pathname);
 
   return (
     <>
@@ -24,6 +26,7 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/profil" element={<ProfilePage />} />
         <Route path="/events" element={<EventsPage />} />
+        <Route path="/events/:eventId" element={<EventDetailPage />} />
         <Route path="/mineevents" element={<MineEventsPage />} />
         <Route path="/opret" element={<CreateEventPage />} />
         <Route path="/beskeder" element={<MessagesPage />} />

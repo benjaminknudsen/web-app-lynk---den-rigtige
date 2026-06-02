@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { NavLink } from "react-router";
 import { supabase } from "../lib/supabaseClient";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
@@ -88,7 +89,10 @@ export default function EventsPage() {
                 key={item.id ?? item.ID ?? item.title}
                 className="explore-event-card"
               >
-                <div className="explore-card-image">
+                <NavLink
+                  to={`/events/${item.id ?? item.ID}`}
+                  className="explore-card-image explore-card-link"
+                >
                   <img
                     src={sharedEventImage || getEventImage(item)}
                     alt={item.title}
@@ -98,9 +102,13 @@ export default function EventsPage() {
                     <span className="people-icon" aria-hidden="true" />
                     {getEventSpots(item)}
                   </span>
-                </div>
+                </NavLink>
                 <div className="explore-card-body">
-                  <h3>{item.title}</h3>
+                  <h3>
+                    <NavLink to={`/events/${item.id ?? item.ID}`}>
+                      {item.title}
+                    </NavLink>
+                  </h3>
                   <div className="explore-card-meta">
                     <p>
                       <span
