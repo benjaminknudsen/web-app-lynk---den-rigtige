@@ -38,7 +38,21 @@ function getEventImage(item) {
 }
 
 function getEventSpots(item) {
-  return item.spots || item.participants || item.capacity || "12 / 22";
+  if (item.spots) {
+    return item.spots;
+  }
+
+  const participants = item.participants ?? item.attendees ?? item.joined_count;
+
+  if (item.capacity) {
+    return `${Math.max(Number(participants ?? 1), 1)}/${item.capacity}`;
+  }
+
+  if (participants) {
+    return `${Math.max(Number(participants), 1)}/22`;
+  }
+
+  return "1/22";
 }
 
 function getEventDateParts(date = "") {
