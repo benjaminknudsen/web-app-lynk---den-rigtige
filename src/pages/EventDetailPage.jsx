@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router";
 import { supabase } from "../lib/supabaseClient";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
+import padelIcon from "../assets/Vector.svg";
+import basketIcon from "../assets/carbon_basketball.svg";
 import profileImg from "../assets/profilbillede.png";
 import sofieImg from "../assets/sofieaarhus.png";
 
@@ -13,12 +15,131 @@ const fallbackImages = {
     "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=900&q=80",
   lob:
     "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=900&q=80",
+  padel:
+    "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=900&q=80",
+  basket:
+    "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=900&q=80",
 };
 
 const tagIcons = {
   fodbold: soccerIcon,
   "løb": runIcon,
   lob: runIcon,
+  padel: padelIcon,
+  basket: basketIcon,
+};
+
+const demoEvents = {
+  "demo-run-10k": {
+    title: "Løbetur - 10 km",
+    location: "Aarhus",
+    date: "Man 26 Maj · 18:30",
+    tag: "Løb",
+    spots: "4 / 10",
+    image:
+      "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=900&q=80",
+    description:
+      "Vi løber en rolig 10 km tur gennem Aarhus. Alle der kan holde et stabilt tempo er velkomne.",
+  },
+  "demo-fodboldhygge": {
+    title: "Fodboldhygge",
+    location: "Aarhus",
+    date: "Lør 24 Maj · 13:00",
+    tag: "Fodbold",
+    spots: "5 / 22",
+    image:
+      "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=80",
+  },
+  "demo-padel-for-alle": {
+    title: "Padel for alle",
+    location: "Aarhus",
+    date: "Ons 28 Maj · 19:30",
+    tag: "Padel",
+    spots: "3 / 14",
+    image:
+      "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=900&q=80",
+  },
+  "demo-basket-i-parken": {
+    title: "Basket i parken",
+    location: "Aarhus",
+    date: "Tor 29 Maj · 17:30",
+    tag: "Basket",
+    spots: "6 / 12",
+    image:
+      "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=900&q=80",
+  },
+  "demo-10k-pace": {
+    title: "10k @ 5:00",
+    location: "Aarhus",
+    date: "Tir 13 Jun · 17:00",
+    tag: "Løb",
+    spots: "7 / 10",
+    image:
+      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=900&q=80",
+  },
+  "demo-11v11-aalborg": {
+    title: "11v11 Aalborg",
+    location: "Aalborg",
+    date: "Tir 18 Jun · 19:00",
+    tag: "Fodbold",
+    spots: "19 / 22",
+    image:
+      "https://images.unsplash.com/photo-1518600506278-4e8ef466b810?auto=format&fit=crop&w=900&q=80",
+  },
+  "demo-mangler-1": {
+    title: "Mangler 1",
+    location: "Aarhus",
+    date: "Fre 14 Jun · 18:30",
+    tag: "Padel",
+    spots: "3 / 4",
+    image:
+      "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80",
+  },
+  "demo-morgenlob": {
+    title: "Morgenløb",
+    location: "Aarhus",
+    date: "Søn 16 Jun · 08:00",
+    tag: "Løb",
+    spots: "8 / 15",
+    image:
+      "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=900&q=80",
+  },
+  "demo-lobetur-5-7": {
+    title: "Løbetur - 5-7 km",
+    location: "Aarhus",
+    date: "I dag · 16:30",
+    tag: "Løb",
+    spots: "2 / 8",
+    image:
+      "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=80",
+  },
+  "demo-fodbold-kunst": {
+    title: "Fodbold på kunst",
+    location: "Aarhus",
+    date: "I dag · 15:45",
+    tag: "Fodbold",
+    spots: "9 / 14",
+    image:
+      "https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=900&q=80",
+  },
+  "demo-padel-drop-in": {
+    title: "Padel drop-in",
+    location: "Aarhus",
+    date: "I dag · 17:00",
+    tag: "Padel",
+    spots: "2 / 4",
+    image:
+      "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=900&q=80",
+  },
+  "demo-basket-efter-skole": {
+    title: "Basket efter skole",
+    location: "Aarhus",
+    date: "I dag · 18:00",
+    tag: "Basket",
+    spots: "6 / 10",
+    image:
+      "https://images.unsplash.com/photo-1519861531473-9200262188bf?auto=format&fit=crop&w=900&q=80",
+  },
 };
 
 const participantImages = [
@@ -71,7 +192,16 @@ export default function EventDetailPage() {
 
   useEffect(() => {
     async function fetchEvent() {
+      setIsJoined(false);
       setLoading(true);
+
+      if (demoEvents[eventId]) {
+        setEvent(demoEvents[eventId]);
+        setError("");
+        setLoading(false);
+        return;
+      }
+
       const { data, error } = await supabase
         .from("events")
         .select("*")
