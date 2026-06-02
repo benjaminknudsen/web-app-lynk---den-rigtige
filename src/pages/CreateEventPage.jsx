@@ -44,6 +44,7 @@ export default function CreateEventPage() {
     level: "",
     capacity: "",
     description: "",
+    image: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -87,6 +88,7 @@ export default function CreateEventPage() {
       level: data.level || "",
       capacity: data.capacity || "",
       description: data.description || "",
+      image: data.image || "",
     });
     setEditMode(true);
     setStep(1);
@@ -110,6 +112,7 @@ export default function CreateEventPage() {
           level: "",
           capacity: "",
           description: "",
+          image: "",
         });
       }
     });
@@ -171,6 +174,7 @@ export default function CreateEventPage() {
       level: form.level,
       capacity: Number.isNaN(capacity) ? null : capacity,
       description: form.description || null,
+      image: form.image || null,
     };
 
     if (editMode && eventId) {
@@ -215,6 +219,7 @@ export default function CreateEventPage() {
       level: "",
       capacity: "",
       description: "",
+      image: "",
     });
     setSuccess("Event oprettet!");
     setTimeout(() => {
@@ -317,7 +322,29 @@ export default function CreateEventPage() {
                     placeholder="Læsøesgade 24, 8000 Aarhus"
                   />
                 </label>
-                <div className="create-map-preview" aria-hidden="true" />
+                <label>
+                  Billedlink <span>(Valgfri)</span>
+                  <input
+                    value={form.image}
+                    onChange={(e) =>
+                      setForm({ ...form, image: e.target.value })
+                    }
+                    placeholder="https://..."
+                  />
+                </label>
+                <div
+                  className={
+                    form.image
+                      ? "create-image-preview has-image"
+                      : "create-image-preview"
+                  }
+                >
+                  {form.image ? (
+                    <img src={form.image} alt="Preview af event" />
+                  ) : (
+                    <span>Preview af eventbillede</span>
+                  )}
+                </div>
               </div>
             )}
 
