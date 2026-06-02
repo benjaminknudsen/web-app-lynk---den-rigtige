@@ -3,14 +3,19 @@ import { useNavigate } from "react-router";
 import { supabase } from "../lib/supabaseClient";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
+import activityPhoto from "../assets/image 28.png";
 
 const fallbackImages = {
-  fodbold:
-    "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=640&q=80",
-  "løb":
-    "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=640&q=80",
-  lob:
-    "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=640&q=80",
+  fodbold: activityPhoto,
+  padel: activityPhoto,
+  "løb": activityPhoto,
+  lob: activityPhoto,
+  basketball: activityPhoto,
+  fitness: activityPhoto,
+  cykling: activityPhoto,
+  yoga: activityPhoto,
+  badminton: activityPhoto,
+  andet: activityPhoto,
 };
 
 const tagIcons = {
@@ -24,11 +29,11 @@ function normalizeTag(tag = "") {
 }
 
 function getEventImage(item) {
-  const tag = normalizeTag(item.tag);
+  const tag = normalizeTag(item.activity_type || item.tag);
   return (
     item.image ||
     fallbackImages[tag] ||
-    "https://images.unsplash.com/photo-1540575467063-178f50002caf?auto=format&fit=crop&w=640&q=80"
+    activityPhoto
   );
 }
 
@@ -107,7 +112,6 @@ export default function MineEventsPage() {
   const attendingCount = events.filter(
     (item) => item.joined || item.attending || item.is_attending
   ).length;
-  const sharedEventImage = events[0] ? getEventImage(events[0]) : "";
 
   return (
     <div className="events-page mine-events-page">
@@ -164,7 +168,7 @@ export default function MineEventsPage() {
 
                   <img
                     className="mine-event-image"
-                    src={sharedEventImage || getEventImage(item)}
+                    src={getEventImage(item)}
                     alt={item.title}
                     loading="lazy"
                   />
