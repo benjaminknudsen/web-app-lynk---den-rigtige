@@ -5,6 +5,14 @@ import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import padelIcon from "../assets/Vector.svg";
 import basketIcon from "../assets/carbon_basketball.svg";
+import cancelIcon from "../assets/Aflys.svg";
+import organizerIcon from "../assets/Arrangør.svg";
+import motionIcon from "../assets/motions.svg";
+import visibilityIcon from "../assets/synlighed.svg";
+import smileyIcon from "../assets/smiley.png";
+import seriousIcon from "../assets/seriøsts.svg";
+import mapPreview from "../assets/skærmbilledelokation.png";
+import sofieImg from "../assets/sofieaarhus.png";
 
 const activityOptions = [
   { name: "Fodbold", icon: soccerIcon },
@@ -19,6 +27,24 @@ const activityOptions = [
 ];
 
 const levelOptions = ["Casual", "Motion", "Seriøst"];
+const levelIcons = {
+  Casual: smileyIcon,
+  Motion: motionIcon,
+  Seriøst: seriousIcon,
+};
+const editTags = ["Casual", "Udendørs", "Good vibes"];
+const editHeroFallback =
+  "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80";
+const eventParticipants = [
+  { name: "Sofie", image: sofieImg },
+  { name: "Benjamin", image: "self" },
+  {
+    name: "Mads",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80",
+  },
+];
+const currentUserName = "Benjamin";
 
 function splitDateValue(value = "") {
   const [datePart, timePart] = value.split("·").map((part) => part.trim());
@@ -50,6 +76,14 @@ export default function CreateEventPage() {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [visibilityModalOpen, setVisibilityModalOpen] = useState(false);
+  const [transferModalOpen, setTransferModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [transferRequestedTo, setTransferRequestedTo] = useState("");
+  const transferOptions = eventParticipants.filter(
+    (person) => person.name !== currentUserName
+  );
 
   const loadEvent = useCallback(async (id) => {
     setLoading(true);
@@ -91,6 +125,8 @@ export default function CreateEventPage() {
       image: data.image || "",
     });
     setEditMode(true);
+    setIsPrivate(false);
+    setTransferRequestedTo("");
     setStep(1);
     setLoading(false);
   }, []);
@@ -101,6 +137,8 @@ export default function CreateEventPage() {
         loadEvent(eventId);
       } else {
         setEditMode(false);
+        setIsPrivate(false);
+        setTransferRequestedTo("");
         setStep(1);
         setForm({
           title: "",
@@ -153,6 +191,10 @@ export default function CreateEventPage() {
   function handleBack() {
     setError("");
     setStep((currentStep) => Math.max(currentStep - 1, 1));
+  }
+
+  function updateForm(field, value) {
+    setForm((currentForm) => ({ ...currentForm, [field]: value }));
   }
 
   async function handleSubmit(event) {
@@ -227,15 +269,347 @@ export default function CreateEventPage() {
     }, 900);
   }
 
+  async function handleDeleteEvent() {
+    if (!eventId) {
+      navigate("/mineevents");
+      return;
+    }
+
+    setError("");
+    let res = await supabase.from("events").delete().eq("id", eventId);
+
+    if (res.error) {
+      res = await supabase.from("events").delete().eq("ID", eventId);
+    }
+
+    if (res.error) {
+      setError(res.error.message);
+      setDeleteModalOpen(false);
+      return;
+    }
+
+    setDeleteModalOpen(false);
+    navigate("/mineevents");
+  }
+
   return (
-    <div className="events-page create-event-page">
+    <div className={`events-page create-event-page${editMode ? " edit-event-page" : ""}`}>
       <header className="create-event-header">
-        <h1>{editMode ? "Opdater event" : "Opret event"}</h1>
+        <h1>{editMode ? "Rediger event" : "Opret event"}</h1>
       </header>
 
       <section className="events-form">
         {loading ? (
           <p className="mine-empty-state">Henter event...</p>
+        ) : editMode ? (
+          <form onSubmit={handleSubmit} className="edit-event-form">
+            <div className="edit-cover-field">
+              <img src={form.image || editHeroFallback} alt="" />
+              <button type="button" className="edit-image-button">
+                <span aria-hidden="true" />
+                Skift billede
+              </button>
+            </div>
+
+            <label className="edit-field">
+              Navn på event
+              <input
+                value={form.title}
+                onChange={(e) => updateForm("title", e.target.value)}
+                placeholder="Fodboldhygge - Kom glad"
+              />
+            </label>
+
+            <div className="create-field-group edit-level-group">
+              <span>Niveau / Stemning</span>
+              <div className="level-choice-row">
+                {levelOptions.map((level) => (
+                  <button
+                    key={level}
+                    type="button"
+                    className={form.level === level ? "selected" : ""}
+                    onClick={() => updateForm("level", level)}
+                  >
+                    <img src={levelIcons[level]} alt="" className="edit-level-icon" />
+                    {level}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <label className="edit-field edit-icon-field">
+              Dato
+              <span className="edit-input-shell">
+                <span className="edit-input-icon edit-calendar-icon" aria-hidden="true" />
+                <input
+                  value={form.eventDate}
+                  onChange={(e) => updateForm("eventDate", e.target.value)}
+                  placeholder="Lør. 31 maj 2026"
+                />
+                <span className="edit-chevron" aria-hidden="true" />
+              </span>
+            </label>
+
+            <label className="edit-field edit-icon-field">
+              Tidspunkt
+              <span className="edit-input-shell">
+                <span className="edit-input-icon edit-clock-icon" aria-hidden="true" />
+                <input
+                  value={form.eventTime}
+                  onChange={(e) => updateForm("eventTime", e.target.value)}
+                  placeholder="16:00 - 17:30"
+                />
+                <span className="edit-chevron" aria-hidden="true" />
+              </span>
+            </label>
+
+            <label className="edit-field edit-icon-field">
+              Lokation
+              <span className="edit-input-shell">
+                <span className="edit-input-icon edit-pin-icon" aria-hidden="true" />
+                <input
+                  value={form.location}
+                  onChange={(e) => updateForm("location", e.target.value)}
+                  placeholder="Læsøesgade 24, 8000 Aarhus"
+                />
+                <span className="edit-chevron" aria-hidden="true" />
+              </span>
+            </label>
+
+            <div className="edit-map-preview" aria-hidden="true">
+              <img src={mapPreview} alt="" />
+              <span className="edit-map-pin" />
+            </div>
+
+            <label className="edit-field edit-icon-field">
+              Antal deltagere
+              <span className="edit-input-shell">
+                <span className="edit-input-icon edit-participants-icon" aria-hidden="true" />
+                <input
+                  type="number"
+                  min="1"
+                  value={form.capacity}
+                  onChange={(e) => updateForm("capacity", e.target.value)}
+                  placeholder="22 Deltagere"
+                />
+              </span>
+            </label>
+
+            <label className="edit-field">
+              <span className="edit-label-line">
+                <strong>Beskrivelse</strong>
+                <span>(Valgfri)</span>
+              </span>
+              <textarea
+                value={form.description}
+                onChange={(e) => updateForm("description", e.target.value)}
+                placeholder="Vi spiller for hyggens skyld. Alle niveauer er velkomne så længe det gode humør er første prioritet."
+                maxLength="200"
+              />
+              <small>{form.description.length}/200</small>
+            </label>
+
+            <div className="edit-tags-block">
+              <span>Tags</span>
+              <div className="edit-tags-row">
+                {editTags.map((tag) => (
+                  <button type="button" key={tag}>
+                    {tag}
+                    <span aria-hidden="true" />
+                  </button>
+                ))}
+                <button type="button" className="edit-add-tag" aria-label="Tilføj tag">
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div className="edit-settings-list">
+              <button
+                type="button"
+                className="edit-settings-row"
+                onClick={() => setVisibilityModalOpen(true)}
+              >
+                <img src={visibilityIcon} alt="" className="edit-settings-icon" />
+                <span className="edit-settings-copy">
+                  <strong>Synlighed</strong>
+                  <span className="edit-settings-meta">
+                    <small>{isPrivate ? "Privat event" : "Offentlig event"}</small>
+                    <small>
+                      {isPrivate
+                        ? "Kun inviterede kan se og tilmelde sig"
+                        : "Alle kan se og tilmelde sig"}
+                    </small>
+                  </span>
+                </span>
+                <span className="edit-chevron" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                className="edit-settings-row"
+                onClick={() => setTransferModalOpen(true)}
+              >
+                <img src={organizerIcon} alt="" className="edit-settings-icon" />
+                <span className="edit-settings-copy">
+                  <strong>Overdrag rollen som arrangør</strong>
+                  <span className="edit-settings-meta">
+                    {transferRequestedTo ? (
+                      <small>Anmodning sendt til {transferRequestedTo}</small>
+                    ) : (
+                      <>
+                        <small>Send en anmodning til en deltager</small>
+                        <small>Overdragelsen sker først når personen accepterer</small>
+                      </>
+                    )}
+                  </span>
+                </span>
+                <span className="edit-chevron" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                className="edit-settings-row danger compact"
+                onClick={() => setDeleteModalOpen(true)}
+              >
+                <img src={cancelIcon} alt="" className="edit-settings-icon" />
+                <span className="edit-settings-copy">
+                  <strong>Slet event</strong>
+                  <span className="edit-settings-meta">
+                    <small>Eventet vil blive fjernet</small>
+                  </span>
+                </span>
+                <span className="edit-chevron" aria-hidden="true" />
+              </button>
+            </div>
+
+            <div className="edit-event-actions">
+              <button
+                type="button"
+                className="secondary-btn"
+                onClick={() => navigate("/mineevents")}
+              >
+                Annuller
+              </button>
+              <button type="submit" className="primary-btn">
+                Bekræft ændringer
+              </button>
+            </div>
+
+            {error && <p className="error-message">{error}</p>}
+            {success && <p className="success-message">{success}</p>}
+
+            {visibilityModalOpen && (
+              <div className="edit-modal-backdrop" role="presentation">
+                <div
+                  className="edit-modal"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="visibility-title"
+                >
+                  <h2 id="visibility-title">Vælg synlighed</h2>
+                  <div className="visibility-choice-list">
+                    <button
+                      type="button"
+                      className={!isPrivate ? "selected" : ""}
+                      onClick={() => {
+                        setIsPrivate(false);
+                        setVisibilityModalOpen(false);
+                      }}
+                    >
+                      <strong>Offentlig event</strong>
+                      <small>Alle kan se og tilmelde sig</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={isPrivate ? "selected" : ""}
+                      onClick={() => {
+                        setIsPrivate(true);
+                        setVisibilityModalOpen(false);
+                      }}
+                    >
+                      <strong>Privat event</strong>
+                      <small>Kun inviterede kan se og tilmelde sig</small>
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    className="edit-modal-cancel"
+                    onClick={() => setVisibilityModalOpen(false)}
+                  >
+                    Annuller
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {transferModalOpen && (
+              <div className="edit-modal-backdrop" role="presentation">
+                <div
+                  className="edit-modal"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="transfer-title"
+                >
+                  <h2 id="transfer-title">Overdrag arrangørrollen</h2>
+                  <p>
+                    Vælg en deltager. Personen får en anmodning og bliver først
+                    arrangør, når den accepteres.
+                  </p>
+                  <div className="transfer-list">
+                    {transferOptions.map((person) => (
+                      <button
+                        type="button"
+                        key={person.name}
+                        onClick={() => {
+                          setTransferRequestedTo(person.name);
+                          setTransferModalOpen(false);
+                        }}
+                      >
+                        <img src={person.image} alt="" />
+                        <span>{person.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    className="edit-modal-cancel"
+                    onClick={() => setTransferModalOpen(false)}
+                  >
+                    Annuller
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {deleteModalOpen && (
+              <div className="edit-modal-backdrop" role="presentation">
+                <div
+                  className="edit-modal"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="delete-title"
+                >
+                  <h2 id="delete-title">Slet event?</h2>
+                  <p>Er du sikker på, at du vil slette eventet?</p>
+                  <div className="edit-modal-actions">
+                    <button
+                      type="button"
+                      className="secondary-btn"
+                      onClick={() => setDeleteModalOpen(false)}
+                    >
+                      Annuller
+                    </button>
+                    <button
+                      type="button"
+                      className="danger-btn"
+                      onClick={handleDeleteEvent}
+                    >
+                      Slet event
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </form>
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="step-indicator" aria-label={`Trin ${step} af 3`}>

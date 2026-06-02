@@ -15,7 +15,9 @@ import NotFoundPage from "./pages/NotFoundPage";
 export default function App() {
   const location = useLocation();
   const hideAppHeader =
-    location.pathname === "/profil" || /^\/events\/[^/]+$/.test(location.pathname);
+    location.pathname === "/profil" ||
+    /^\/events\/[^/]+$/.test(location.pathname) ||
+    (location.pathname === "/opret" && location.search.includes("id="));
 
   return (
     <>
