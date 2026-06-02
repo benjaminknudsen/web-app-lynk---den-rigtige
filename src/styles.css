@@ -985,6 +985,296 @@ nav {
   color: var(--accent);
 }
 
+.mine-events-page {
+  min-height: 100vh;
+  background: #0b1112;
+}
+
+.mine-events-header {
+  padding: 2.2rem 1rem 1.7rem;
+}
+
+.mine-events-header h1 {
+  margin: 0;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 2.35rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.mine-events-summary,
+.mine-created-events {
+  padding: 0 1rem;
+}
+
+.mine-events-section-header {
+  margin-bottom: 0.85rem;
+}
+
+.mine-events-section-header h2,
+.mine-created-events h2 {
+  margin: 0;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 1.55rem;
+  line-height: 1.1;
+}
+
+.mine-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.mine-stat-card {
+  min-height: 9.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.48rem;
+  padding: 0.9rem 0.85rem;
+  border: 1px solid rgba(92, 127, 134, 0.72);
+  border-radius: 14px;
+  background: rgba(0, 40, 42, 0.96);
+  box-shadow: inset 0 1px 0 rgba(238, 245, 242, 0.06);
+}
+
+.mine-stat-card-attending {
+  background: rgba(9, 42, 57, 0.98);
+  border-color: rgba(75, 111, 143, 0.82);
+}
+
+.mine-stat-card strong {
+  display: block;
+  color: var(--text-primary);
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 2.2rem;
+  line-height: 0.95;
+}
+
+.mine-stat-card p {
+  max-width: 8.7rem;
+  margin: 0;
+  color: rgba(238, 245, 242, 0.78);
+  font-size: 0.96rem;
+  line-height: 1.35;
+}
+
+.mine-calendar-icon {
+  position: relative;
+  width: 2.65rem;
+  height: 2.65rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(215, 242, 91, 0.2);
+  color: var(--accent);
+}
+
+.mine-stat-card-attending .mine-calendar-icon {
+  background: rgba(40, 139, 197, 0.34);
+  color: #eef5f2;
+}
+
+.mine-calendar-icon::before {
+  content: "";
+  width: 1.16rem;
+  height: 1.02rem;
+  border: 3px solid currentColor;
+  border-radius: 0.18rem;
+  background:
+    linear-gradient(currentColor, currentColor) 0.22rem 0.34rem / 0.88rem 2px
+      no-repeat,
+    linear-gradient(currentColor, currentColor) 0 0.48rem / 100% 3px no-repeat;
+}
+
+.mine-calendar-icon::after {
+  content: "";
+  position: absolute;
+  top: 0.9rem;
+  left: 0.91rem;
+  width: 0.16rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0.8rem 0 0 currentColor;
+}
+
+.mine-created-events {
+  margin-top: 2.25rem;
+}
+
+.mine-created-list {
+  display: grid;
+  gap: 1.9rem;
+  margin-top: 1.35rem;
+}
+
+.mine-event-row {
+  display: grid;
+  grid-template-columns: 3.85rem minmax(5.8rem, 8.15rem) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.mine-event-date {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  color: var(--text-primary);
+  text-align: center;
+  line-height: 1;
+}
+
+.mine-event-date span {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.mine-event-date strong {
+  margin: 0.42rem 0 0.35rem;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 2.45rem;
+  line-height: 0.84;
+}
+
+.mine-event-image {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.mine-event-content {
+  min-width: 0;
+  display: grid;
+  gap: 0.48rem;
+}
+
+.mine-event-title-row {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 0.45rem;
+}
+
+.mine-event-title-row h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.mine-event-menu {
+  display: grid;
+  gap: 0.25rem;
+  justify-items: end;
+}
+
+.mine-event-menu button {
+  min-width: 3.6rem;
+  height: 1.35rem;
+  padding: 0 0.42rem;
+  border: 1px solid rgba(238, 245, 242, 0.2);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(238, 245, 242, 0.78);
+  font-size: 0.66rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mine-event-menu button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.mine-event-meta {
+  display: grid;
+  gap: 0.34rem;
+}
+
+.mine-event-meta p {
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgba(238, 245, 242, 0.63);
+  font-size: 0.92rem;
+  line-height: 1.15;
+}
+
+.mine-event-meta span:last-child {
+  min-width: 0;
+}
+
+.mine-event-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 0.2rem;
+}
+
+.mine-event-spots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgba(238, 245, 242, 0.68);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.mine-event-spots .people-icon {
+  color: var(--accent);
+}
+
+.mine-event-tag {
+  max-width: 6.2rem;
+  height: 1.42rem;
+  font-size: 0.74rem;
+}
+
+.mine-empty-state {
+  margin: 1.1rem 0 0;
+  color: rgba(238, 245, 242, 0.66);
+}
+
+@media (max-width: 380px) {
+  .mine-events-header h1 {
+    font-size: 2.05rem;
+  }
+
+  .mine-stat-card {
+    min-height: 8.55rem;
+    padding: 0.8rem 0.7rem;
+  }
+
+  .mine-stat-card p {
+    font-size: 0.96rem;
+  }
+
+  .mine-event-row {
+    grid-template-columns: 3rem minmax(4.75rem, 5.8rem) minmax(0, 1fr);
+    gap: 0.55rem;
+  }
+
+  .mine-event-date strong {
+    font-size: 2rem;
+  }
+
+  .mine-event-title-row h3 {
+    font-size: 0.88rem;
+  }
+
+  .mine-event-meta p,
+  .mine-event-spots,
+  .mine-event-tag {
+    font-size: 0.72rem;
+  }
+}
+
 .how-it-works {
   background: rgba(8, 16, 16, 0.92);
   border-radius: 0;
