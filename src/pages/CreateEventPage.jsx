@@ -19,7 +19,6 @@ import smileyIcon from "../assets/smiley.png";
 import seriousIcon from "../assets/seriost.svg";
 import mapPreview from "../assets/skaermbillede-lokation.png";
 import sofieImg from "../assets/sofie-aarhus.png";
-import padelIcon from "../assets/vector.svg";
 
 const activityOptions = [
   { name: "Fodbold", icon: soccerIcon },
