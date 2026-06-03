@@ -87,6 +87,7 @@ export default function MineEventsPage() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deleteCandidate, setDeleteCandidate] = useState(null);
 
   useEffect(() => {
     fetchEvents();
@@ -109,13 +110,29 @@ export default function MineEventsPage() {
     setLoading(false);
   }
 
-  async function handleDelete(id) {
-    const { error } = await supabase.from("events").delete().eq("id", id);
-    if (error) {
-      setError(error.message);
-    } else {
-      fetchEvents();
+  async function handleDelete(item) {
+    const id = item?.id ?? item?.ID;
+
+    if (!id) {
+      setError("Kunne ikke finde event-id.");
+      setDeleteCandidate(null);
+      return;
     }
+
+    let res = await supabase.from("events").delete().eq("id", id);
+
+    if (res.error) {
+      res = await supabase.from("events").delete().eq("ID", id);
+    }
+
+    if (res.error) {
+      setError(res.error.message);
+      setDeleteCandidate(null);
+      return;
+    }
+
+    setDeleteCandidate(null);
+    fetchEvents();
   }
 
   function handleEdit(item) {
@@ -215,7 +232,7 @@ export default function MineEventsPage() {
                           type="button"
                           onClick={(event) => {
                             event.stopPropagation();
-                            handleDelete(item.id ?? item.ID);
+                            setDeleteCandidate(item);
                           }}
                         >
                           Slet
@@ -257,6 +274,39 @@ export default function MineEventsPage() {
         )}
         {error && <p className="error-message">{error}</p>}
       </section>
+
+      {deleteCandidate && (
+        <div className="edit-modal-backdrop" role="presentation">
+          <div
+            className="edit-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="mine-delete-title"
+          >
+            <h2 id="mine-delete-title">Slet event?</h2>
+            <p>
+              Er du sikker på, at du vil slette{" "}
+              {deleteCandidate.title ? `"${deleteCandidate.title}"` : "eventet"}?
+            </p>
+            <div className="edit-modal-actions">
+              <button
+                type="button"
+                className="secondary-btn"
+                onClick={() => setDeleteCandidate(null)}
+              >
+                Annuller
+              </button>
+              <button
+                type="button"
+                className="danger-btn"
+                onClick={() => handleDelete(deleteCandidate)}
+              >
+                Slet event
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
