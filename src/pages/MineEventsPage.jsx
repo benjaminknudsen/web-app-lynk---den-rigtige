@@ -3,10 +3,10 @@ import { useNavigate } from "react-router";
 import { supabase } from "../lib/supabaseClient";
 import { DEMO_USER_ID } from "../lib/demoUser";
 import soccerIcon from "../assets/soccer.svg";
-import runIcon from "../assets/tabler_run.svg";
-import activityPhoto from "../assets/image 28.png";
-import createdEventsIcon from "../assets/eventskalender1.png";
-import attendingEventsIcon from "../assets/eventskalender2.png";
+import runIcon from "../assets/tabler-run.svg";
+import activityPhoto from "../assets/image-28.png";
+import createdEventsIcon from "../assets/events-created-icon.png";
+import attendingEventsIcon from "../assets/events-attending-icon.png";
 
 const fallbackImages = {
   fodbold: activityPhoto,

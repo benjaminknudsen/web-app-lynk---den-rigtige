@@ -1,9 +1,9 @@
 import { NavLink } from "react-router";
 import soccerIcon from "../assets/soccer.svg";
-import eventIcon from "../assets/material-symbols_event-outline.png";
-import addIcon from "../assets/formkit_add.png";
-import messagesIcon from "../assets/tabler_messages.png";
-import profileIcon from "../assets/iconamoon_profile.png";
+import eventIcon from "../assets/material-symbols-event-outline.png";
+import addIcon from "../assets/formkit-add.png";
+import messagesIcon from "../assets/tabler-messages.png";
+import profileIcon from "../assets/iconamoon-profile.png";
 
 export default function BottomNav() {
   return (

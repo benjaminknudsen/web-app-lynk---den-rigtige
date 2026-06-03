@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router";
 import { supabase } from "../lib/supabaseClient";
 import { DEMO_USER_ID } from "../lib/demoUser";
 import soccerIcon from "../assets/soccer.svg";
-import runIcon from "../assets/tabler_run.svg";
-import padelIcon from "../assets/Vector.svg";
-import basketIcon from "../assets/carbon_basketball.svg";
+import runIcon from "../assets/tabler-run.svg";
+import padelIcon from "../assets/vector.svg";
+import basketIcon from "../assets/carbon-basketball.svg";
 import profileImg from "../assets/profilbillede.png";
-import sofieImg from "../assets/sofieaarhus.png";
+import sofieImg from "../assets/sofie-aarhus.png";
 
 const fallbackImages = {
   fodbold:

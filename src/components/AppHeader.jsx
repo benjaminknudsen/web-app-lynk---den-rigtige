@@ -1,8 +1,8 @@
 import { NavLink } from "react-router";
-import logo from "../assets/frame125.svg";
+import logo from "../assets/frame-125.svg";
 import bellIcon from "../assets/klokke.png";
 import profileImg from "../assets/profilbillede.png";
-import searchIcon from "../assets/søgefelt.png";
+import searchIcon from "../assets/sogefelt.png";
 
 export default function AppHeader() {
   return (
