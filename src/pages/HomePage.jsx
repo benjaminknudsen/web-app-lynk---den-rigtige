@@ -1,20 +1,20 @@
 import { NavLink } from "react-router";
 import soccerIcon from "../assets/soccer.svg";
-import runIcon from "../assets/tabler_run.svg";
-import padelIcon from "../assets/Vector.svg";
-import basketIcon from "../assets/carbon_basketball.svg";
+import runIcon from "../assets/tabler-run.svg";
+import padelIcon from "../assets/vector.svg";
+import basketIcon from "../assets/carbon-basketball.svg";
 import graphIcon from "../assets/graf.png";
-import fireIcon from "../assets/gronild.png";
-import heroImage from "../assets/image 28.png";
+import fireIcon from "../assets/gron-ild.png";
+import heroImage from "../assets/image-28.png";
 import findIcon from "../assets/find.png";
 import joinIcon from "../assets/join.png";
-import vaermedIcon from "../assets/vaermed.png";
+import vaermedIcon from "../assets/vaer-med.png";
 import lightningIcon from "../assets/lyn.png";
-import aktivebrugereIcon from "../assets/aktivebrugere.png";
-import antaldeltagereIcon from "../assets/antaldeltagere.png";
-import aktiviteteroprettetIcon from "../assets/aktivivteteroprettet.png";
+import aktivebrugereIcon from "../assets/aktive-brugere.png";
+import antaldeltagereIcon from "../assets/antal-deltagere.png";
+import aktiviteteroprettetIcon from "../assets/aktiviteter-oprettet.png";
 import bedømmelseIcon from "../assets/bedommelse.png";
-import sofieAarhus from "../assets/sofieaarhus.png";
+import sofieAarhus from "../assets/sofie-aarhus.png";
 
 const categories = [
   { name: "Fodbold", icon: soccerIcon },

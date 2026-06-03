@@ -1,4 +1,4 @@
-import activityPhoto from "../assets/image 28.png";
+import activityPhoto from "../assets/image-28.png";
 
 const fallbackImages = {
   fodbold:

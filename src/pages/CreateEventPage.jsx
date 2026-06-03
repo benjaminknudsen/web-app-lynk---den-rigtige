@@ -3,22 +3,22 @@ import { useNavigate, useSearchParams } from "react-router";
 import { supabase } from "../lib/supabaseClient";
 import { DEMO_USER_ID } from "../lib/demoUser";
 import soccerIcon from "../assets/soccer.svg";
-import runIcon from "../assets/tabler_run.svg";
-import padelIcon from "../assets/Vector.svg";
-import basketIcon from "../assets/carbon_basketball.svg";
-import fitnessIcon from "../assets/maki_fitness-centre.svg";
+import runIcon from "../assets/tabler-run.svg";
+import padelIcon from "../assets/vector.svg";
+import basketIcon from "../assets/carbon-basketball.svg";
+import fitnessIcon from "../assets/maki-fitness-centre.svg";
 import cyclingIcon from "../assets/sportsgren.svg";
 import yogaIcon from "../assets/yoga.svg";
 import badmintonIcon from "../assets/badminton.svg";
-import dotsIcon from "../assets/tabler_dots.svg";
-import cancelIcon from "../assets/Aflys.svg";
-import organizerIcon from "../assets/Arrangør.svg";
+import dotsIcon from "../assets/tabler-dots.svg";
+import cancelIcon from "../assets/aflys.svg";
+import organizerIcon from "../assets/arrangor.svg";
 import motionIcon from "../assets/motions.svg";
 import visibilityIcon from "../assets/synlighed.svg";
 import smileyIcon from "../assets/smiley.png";
-import seriousIcon from "../assets/seriøsts.svg";
-import mapPreview from "../assets/skærmbilledelokation.png";
-import sofieImg from "../assets/sofieaarhus.png";
+import seriousIcon from "../assets/seriost.svg";
+import mapPreview from "../assets/skaermbillede-lokation.png";
+import sofieImg from "../assets/sofie-aarhus.png";
 
 const activityOptions = [
   { name: "Fodbold", icon: soccerIcon },

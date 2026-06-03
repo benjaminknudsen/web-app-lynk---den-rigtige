@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import settingsIcon from "../assets/indstillinger.png";
-import courtImg from "../assets/image 28.png";
-import sofieImg from "../assets/sofieaarhus.png";
-import kasperImg from "../assets/Mike.png";
+import courtImg from "../assets/image-28.png";
+import sofieImg from "../assets/sofie-aarhus.png";
+import kasperImg from "../assets/mike.png";
 import jonasImg from "../assets/jon.png";
-import najaImg from "../assets/Loui.png";
+import najaImg from "../assets/loui.png";
 
 const conversations = [
     {
