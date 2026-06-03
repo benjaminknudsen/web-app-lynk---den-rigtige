@@ -5,7 +5,7 @@ import { supabase } from "../lib/supabaseClient";
 import checkAnimation from "../assets/lottie/real-new-check.json";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler-run.svg";
-import padelIcon from "../assets/vector.svg";
+import padelIcon from "../assets/Vector.svg";
 import basketIcon from "../assets/carbon-basketball.svg";
 import { getEventImage, normalizeTag } from "../utils/eventDisplay";
 

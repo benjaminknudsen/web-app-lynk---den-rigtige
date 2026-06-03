@@ -1,7 +1,7 @@
 import { NavLink } from "react-router";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler-run.svg";
-import padelIcon from "../assets/vector.svg";
+import padelIcon from "../assets/Vector.svg";
 import basketIcon from "../assets/carbon-basketball.svg";
 import graphIcon from "../assets/graf.png";
 import fireIcon from "../assets/gron-ild.png";

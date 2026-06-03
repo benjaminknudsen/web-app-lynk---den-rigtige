@@ -3,7 +3,7 @@ import profileImg from "../assets/profilbillede.png";
 import sofieAarhus from "../assets/sofie-aarhus.png";
 import heroImage from "../assets/image-28.png";
 import settingsIcon from "../assets/indstillinger.png";
-import kasperImg from "../assets/mike.png";
+import kasperImg from "../assets/Mike.png";
 
 const stats = [
   { value: "14", label: "Events deltaget" },

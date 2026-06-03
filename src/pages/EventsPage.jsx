@@ -4,7 +4,7 @@ import { supabase } from "../lib/supabaseClient";
 import { DEMO_USER_ID } from "../lib/demoUser";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler-run.svg";
-import padelIcon from "../assets/vector.svg";
+import padelIcon from "../assets/Vector.svg";
 import basketIcon from "../assets/carbon-basketball.svg";
 
 const filterActivities = [
