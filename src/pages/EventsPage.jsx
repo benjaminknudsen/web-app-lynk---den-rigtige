@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { supabase } from "../lib/supabaseClient";
+import { DEMO_USER_ID } from "../lib/demoUser";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import padelIcon from "../assets/Vector.svg";
@@ -73,6 +74,7 @@ export default function EventsPage() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [joinedEventIds, setJoinedEventIds] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   const [showSort, setShowSort] = useState(false);
   const [sortBy, setSortBy] = useState("soonest");
@@ -134,9 +136,70 @@ export default function EventsPage() {
     setLoading(false);
   }, []);
 
+  const fetchJoinedEvents = useCallback(async () => {
+    const { data, error } = await supabase
+      .from("event_participants")
+      .select("event_id")
+      .eq("user_id", DEMO_USER_ID)
+      .eq("status", "joined");
+
+    if (error) {
+      setError(error.message);
+      setJoinedEventIds([]);
+      return;
+    }
+
+    setJoinedEventIds((data || []).map((item) => item.event_id));
+  }, []);
+
+  async function handleJoinEvent(item) {
+    const eventId = item.ID;
+
+    if (!eventId) {
+      setError("Eventet mangler et UUID og kan ikke tilmeldes.");
+      return;
+    }
+
+    const isJoined = joinedEventIds.includes(eventId);
+
+    if (isJoined) {
+      const { error } = await supabase
+        .from("event_participants")
+        .delete()
+        .eq("event_id", eventId)
+        .eq("user_id", DEMO_USER_ID);
+
+      if (error) {
+        setError(error.message);
+        return;
+      }
+
+      setJoinedEventIds((current) => current.filter((id) => id !== eventId));
+      setError("");
+      return;
+    }
+
+    const { error } = await supabase.from("event_participants").insert({
+      event_id: eventId,
+      user_id: DEMO_USER_ID,
+      status: "joined",
+    });
+
+    if (error) {
+      setError(error.message);
+      return;
+    }
+
+    setJoinedEventIds((current) => [...new Set([...current, eventId])]);
+    setError("");
+  }
+
   useEffect(() => {
-    void Promise.resolve().then(fetchEvents);
-  }, [fetchEvents]);
+    void Promise.resolve().then(async () => {
+      await fetchEvents();
+      await fetchJoinedEvents();
+    });
+  }, [fetchEvents, fetchJoinedEvents]);
 
   return (
     <div className="events-page">
@@ -328,8 +391,14 @@ export default function EventsPage() {
                         {item.tag}
                       </span>
                     )}
-                    <button type="button" className="join-btn">
-                      Join
+                    <button
+                      type="button"
+                      className={`join-btn${
+                        joinedEventIds.includes(item.ID) ? " is-joined" : ""
+                      }`}
+                      onClick={() => handleJoinEvent(item)}
+                    >
+                      {joinedEventIds.includes(item.ID) ? "Tilmeldt" : "Join"}
                     </button>
                   </div>
                 </div>

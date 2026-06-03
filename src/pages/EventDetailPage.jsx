@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { supabase } from "../lib/supabaseClient";
+import { DEMO_USER_ID } from "../lib/demoUser";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import padelIcon from "../assets/Vector.svg";
@@ -228,6 +229,21 @@ export default function EventDetailPage() {
       } else {
         setEvent(data);
         setError("");
+
+        if (data?.ID) {
+          const { data: participation, error: participationError } =
+            await supabase
+              .from("event_participants")
+              .select("id")
+              .eq("event_id", data.ID)
+              .eq("user_id", DEMO_USER_ID)
+              .eq("status", "joined")
+              .maybeSingle();
+
+          if (!participationError) {
+            setIsJoined(Boolean(participation));
+          }
+        }
       }
 
       setLoading(false);
@@ -236,10 +252,56 @@ export default function EventDetailPage() {
     fetchEvent();
   }, [eventId]);
 
+  async function handleJoinToggle() {
+    if (isOrganizer) {
+      navigate(`/opret?id=${eventId}`);
+      return;
+    }
+
+    if (!event?.ID) {
+      setIsJoined((current) => !current);
+      return;
+    }
+
+    if (isJoined) {
+      const { error } = await supabase
+        .from("event_participants")
+        .delete()
+        .eq("event_id", event.ID)
+        .eq("user_id", DEMO_USER_ID);
+
+      if (error) {
+        setError(error.message);
+        return;
+      }
+
+      setIsJoined(false);
+      setError("");
+      return;
+    }
+
+    const { error } = await supabase.from("event_participants").insert({
+      event_id: event.ID,
+      user_id: DEMO_USER_ID,
+      status: "joined",
+    });
+
+    if (error) {
+      setError(error.message);
+      return;
+    }
+
+    setIsJoined(true);
+    setError("");
+  }
+
   const tag = normalizeTag(event?.tag);
   const tagIcon = tagIcons[tag];
   const isOrganizer = Boolean(
-    event?.is_organizer || event?.isOrganizer || event?.organizer
+    event?.user_id === DEMO_USER_ID ||
+      event?.is_organizer ||
+      event?.isOrganizer ||
+      event?.organizer
   );
   const organizerName = event?.organizer_name || event?.organizer || "Benjamin";
   const organizerSubline = isOrganizer
@@ -352,11 +414,7 @@ export default function EventDetailPage() {
         <button
           type="button"
           className={`event-detail-primary${isJoined ? " is-joined" : ""}`}
-          onClick={() => {
-            if (!isOrganizer) {
-              setIsJoined((current) => !current);
-            }
-          }}
+          onClick={handleJoinToggle}
         >
           {isOrganizer
             ? "Rediger dit event"

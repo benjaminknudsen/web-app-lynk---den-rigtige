@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { supabase } from "../lib/supabaseClient";
+import { DEMO_USER_ID } from "../lib/demoUser";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import activityPhoto from "../assets/image 28.png";
@@ -85,19 +86,18 @@ function getEventDateParts(date = "") {
 export default function MineEventsPage() {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
+  const [attendingEvents, setAttendingEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [attendingLoading, setAttendingLoading] = useState(true);
   const [error, setError] = useState("");
   const [deleteCandidate, setDeleteCandidate] = useState(null);
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
-  async function fetchEvents() {
+  const fetchEvents = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from("events")
       .select("*")
+      .eq("user_id", DEMO_USER_ID)
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -108,21 +108,41 @@ export default function MineEventsPage() {
       setError("");
     }
     setLoading(false);
-  }
+  }, []);
 
-  async function handleDelete(item) {
-    const id = item?.id ?? item?.ID;
+  const fetchAttendingEvents = useCallback(async () => {
+    setAttendingLoading(true);
+    const { data, error } = await supabase
+      .from("event_participants")
+      .select("events(*)")
+      .eq("user_id", DEMO_USER_ID)
+      .eq("status", "joined")
+      .order("created_at", { ascending: false });
 
-    if (!id) {
-      setError("Kunne ikke finde event-id.");
-      setDeleteCandidate(null);
-      return;
+    if (error) {
+      setError(error.message);
+      setAttendingEvents([]);
+    } else {
+      setAttendingEvents((data || []).map((item) => item.events).filter(Boolean));
+      setError("");
     }
+    setAttendingLoading(false);
+  }, []);
 
-    let res = await supabase.from("events").delete().eq("id", id);
+  const refreshMineEvents = useCallback(async () => {
+    await Promise.all([fetchEvents(), fetchAttendingEvents()]);
+  }, [fetchAttendingEvents, fetchEvents]);
 
-    if (res.error) {
-      res = await supabase.from("events").delete().eq("ID", id);
+  useEffect(() => {
+    void Promise.resolve().then(refreshMineEvents);
+  }, [refreshMineEvents]);
+
+  async function handleDelete(id) {
+    const { error } = await supabase.from("events").delete().eq("id", id);
+    if (error) {
+      setError(error.message);
+    } else {
+      refreshMineEvents();
     }
 
     if (res.error) {
@@ -140,9 +160,74 @@ export default function MineEventsPage() {
   }
 
   const upcomingCount = events.length;
-  const attendingCount = events.filter(
-    (item) => item.joined || item.attending || item.is_attending
-  ).length;
+  const attendingCount = attendingEvents.length;
+
+  function renderEventRow(item, actions = null) {
+    const dateParts = getEventDateParts(item.date);
+    const tag = normalizeTag(item.tag);
+    const detailPath = `/events/${item.id ?? item.ID}`;
+
+    return (
+      <article
+        key={item.id ?? item.ID ?? item.title}
+        className="mine-event-row"
+        role="link"
+        tabIndex={0}
+        aria-label={`Åbn ${item.title}`}
+        onClick={() => navigate(detailPath)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            navigate(detailPath);
+          }
+        }}
+      >
+        <div className="mine-event-date" aria-label={item.date}>
+          <span>{dateParts.weekday}</span>
+          <strong>{dateParts.day}</strong>
+          <span>{dateParts.month}</span>
+        </div>
+
+        <img
+          className="mine-event-image"
+          src={getEventImage(item)}
+          alt={item.title}
+          loading="lazy"
+        />
+
+        <div className="mine-event-content">
+          <div className="mine-event-title-row">
+            <h3>{item.title}</h3>
+            {actions}
+          </div>
+
+          <div className="mine-event-meta">
+            <p>
+              <span className="meta-icon location-icon" aria-hidden="true" />
+              <span>{item.location}</span>
+            </p>
+            <p>
+              <span className="meta-icon time-icon" aria-hidden="true" />
+              <span>{dateParts.time}</span>
+            </p>
+          </div>
+
+          <div className="mine-event-footer">
+            <span className="mine-event-spots">
+              <span className="people-icon" aria-hidden="true" />
+              {getEventSpots(item)}
+            </span>
+            {item.tag && (
+              <span className="explore-tag mine-event-tag">
+                {tagIcons[tag] && <img src={tagIcons[tag]} alt="" />}
+                {item.tag}
+              </span>
+            )}
+          </div>
+        </div>
+      </article>
+    );
+  }
 
   return (
     <div className="events-page mine-events-page">
@@ -153,7 +238,7 @@ export default function MineEventsPage() {
       <section className="mine-events-summary" aria-label="Kommende events">
         <div className="section-header mine-events-section-header">
           <h2>Kommende events</h2>
-          <button type="button" onClick={fetchEvents} className="link-btn">
+          <button type="button" onClick={refreshMineEvents} className="link-btn">
             Opdater
           </button>
         </div>
@@ -172,7 +257,7 @@ export default function MineEventsPage() {
       </section>
 
       <section className="mine-created-events">
-        <h2>Du har oprettet</h2>
+        <h2>Events du har oprettet</h2>
 
         {loading ? (
           <p className="mine-empty-state">Henter events...</p>
@@ -182,131 +267,51 @@ export default function MineEventsPage() {
           </p>
         ) : (
           <div className="mine-created-list">
-            {events.map((item) => {
-              const dateParts = getEventDateParts(item.date);
-              const tag = normalizeTag(item.tag);
-              const detailPath = `/events/${item.id ?? item.ID}`;
-
-              return (
-                <article
-                  key={item.id ?? item.ID ?? item.title}
-                  className="mine-event-row"
-                  role="link"
-                  tabIndex={0}
-                  aria-label={`Åbn ${item.title}`}
-                  onClick={() => navigate(detailPath)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      navigate(detailPath);
-                    }
-                  }}
-                >
-                  <div className="mine-event-date" aria-label={item.date}>
-                    <span>{dateParts.weekday}</span>
-                    <strong>{dateParts.day}</strong>
-                    <span>{dateParts.month}</span>
-                  </div>
-
-                  <img
-                    className="mine-event-image"
-                    src={getEventImage(item)}
-                    alt={item.title}
-                    loading="lazy"
-                  />
-
-                  <div className="mine-event-content">
-                    <div className="mine-event-title-row">
-                      <h3>{item.title}</h3>
-                      <div className="mine-event-menu" aria-label="Event actions">
-                        <button
-                          type="button"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            handleEdit(item);
-                          }}
-                        >
-                          Rediger
-                        </button>
-                        <button
-                          type="button"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            setDeleteCandidate(item);
-                          }}
-                        >
-                          Slet
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="mine-event-meta">
-                      <p>
-                        <span
-                          className="meta-icon location-icon"
-                          aria-hidden="true"
-                        />
-                        <span>{item.location}</span>
-                      </p>
-                      <p>
-                        <span className="meta-icon time-icon" aria-hidden="true" />
-                        <span>{dateParts.time}</span>
-                      </p>
-                    </div>
-
-                    <div className="mine-event-footer">
-                      <span className="mine-event-spots">
-                        <span className="people-icon" aria-hidden="true" />
-                        {getEventSpots(item)}
-                      </span>
-                      {item.tag && (
-                        <span className="explore-tag mine-event-tag">
-                          {tagIcons[tag] && <img src={tagIcons[tag]} alt="" />}
-                          {item.tag}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+            {events.map((item) =>
+              renderEventRow(
+                item,
+                <div className="mine-event-menu" aria-label="Event actions">
+                  <button
+                    type="button"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleEdit(item);
+                    }}
+                  >
+                    Rediger
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleDelete(item.id ?? item.ID);
+                    }}
+                  >
+                    Slet
+                  </button>
+                </div>
+              )
+            )}
           </div>
         )}
         {error && <p className="error-message">{error}</p>}
       </section>
 
-      {deleteCandidate && (
-        <div className="edit-modal-backdrop" role="presentation">
-          <div
-            className="edit-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="mine-delete-title"
-          >
-            <h2 id="mine-delete-title">Slet event?</h2>
-            <p>
-              Er du sikker på, at du vil slette{" "}
-              {deleteCandidate.title ? `"${deleteCandidate.title}"` : "eventet"}?
-            </p>
-            <div className="edit-modal-actions">
-              <button
-                type="button"
-                className="secondary-btn"
-                onClick={() => setDeleteCandidate(null)}
-              >
-                Annuller
-              </button>
-              <button
-                type="button"
-                className="danger-btn"
-                onClick={() => handleDelete(deleteCandidate)}
-              >
-                Slet event
-              </button>
-            </div>
+      <section className="mine-created-events mine-attending-events">
+        <h2>Events du deltager i</h2>
+
+        {attendingLoading ? (
+          <p className="mine-empty-state">Henter events...</p>
+        ) : attendingEvents.length === 0 ? (
+          <p className="mine-empty-state">
+            Du deltager ikke i nogen events endnu. Tryk Join på Udforsk.
+          </p>
+        ) : (
+          <div className="mine-created-list">
+            {attendingEvents.map((item) => renderEventRow(item))}
           </div>
-        </div>
-      )}
+        )}
+      </section>
     </div>
   );
 }
