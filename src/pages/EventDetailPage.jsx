@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { supabase } from "../lib/supabaseClient";
 import { DEMO_USER_ID } from "../lib/demoUser";
@@ -155,6 +155,21 @@ function normalizeTag(tag) {
   return String(tag ?? "").trim().toLowerCase();
 }
 
+function normalizeEventTags(tags) {
+  if (Array.isArray(tags)) {
+    return tags.filter(Boolean);
+  }
+
+  if (typeof tags === "string") {
+    return tags
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
 function getEventImage(item) {
   const tag = normalizeTag(item?.tag);
   return (
@@ -307,10 +322,7 @@ export default function EventDetailPage() {
   const organizerSubline = isOrganizer
     ? "Du har arrangeret 13 events"
     : "Arrangerer 13 Events";
-  const skillTags = useMemo(
-    () => ["For alle", "Casual", "Aktiv", "Udendørs"],
-    []
-  );
+  const eventTags = normalizeEventTags(event?.tags);
 
   if (loading) {
     return (
@@ -367,11 +379,13 @@ export default function EventDetailPage() {
           </span>
         )}
 
-        <div className="event-detail-chips" aria-label="Event type">
-          {skillTags.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </div>
+        {eventTags.length > 0 && (
+          <div className="event-detail-chips" aria-label="Event tags">
+            {eventTags.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        )}
 
         <div className="event-detail-meta">
           <p>

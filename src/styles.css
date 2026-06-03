@@ -1649,6 +1649,33 @@ nav {
   gap: 0.5rem;
 }
 
+.tag-choice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-choice-row button {
+  min-height: 2.2rem;
+  padding: 0 0.82rem;
+  border: 1px solid rgba(238, 245, 242, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(238, 245, 242, 0.78);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tag-choice-row button.selected {
+  border-color: var(--accent);
+  background: rgba(215, 242, 91, 0.14);
+  color: var(--accent);
+}
+
+.selected-tags-row {
+  margin-top: 0.1rem;
+}
+
 .edit-tags-row button {
   height: 1.58rem;
   display: inline-flex;
@@ -1679,6 +1706,33 @@ nav {
   border-radius: 50%;
   font-size: 1.4rem;
   line-height: 1;
+}
+
+.custom-tag-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+}
+
+.custom-tag-field input {
+  min-width: 0;
+  height: 2.6rem;
+  padding: 0 0.8rem;
+  border: 1px solid rgba(238, 245, 242, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text-primary);
+}
+
+.custom-tag-field button {
+  height: 2.6rem;
+  padding: 0 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 800;
+  cursor: pointer;
 }
 
 .edit-settings-list {
