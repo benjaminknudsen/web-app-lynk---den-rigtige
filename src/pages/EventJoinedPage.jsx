@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import LottieCanvas from "../components/LottieCanvas";
 import { supabase } from "../lib/supabaseClient";
+import { getSeededExploreEvent } from "../lib/exploreEvents";
 import checkAnimation from "../assets/lottie/real-new-check.json";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler-run.svg";
@@ -28,6 +29,15 @@ export default function EventJoinedPage() {
   useEffect(() => {
     async function fetchEvent() {
       setLoading(true);
+
+      const seededEvent = getSeededExploreEvent(eventId);
+
+      if (seededEvent) {
+        setEvent(seededEvent);
+        setError("");
+        setLoading(false);
+        return;
+      }
 
       const { data, error } = await supabase
         .from("events")

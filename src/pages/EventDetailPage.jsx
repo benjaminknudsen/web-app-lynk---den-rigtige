@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { supabase } from "../lib/supabaseClient";
 import { DEMO_USER_ID } from "../lib/demoUser";
+import {
+  SEEDED_EXPLORE_EVENT_JOIN_KEY,
+  getSeededExploreEvent,
+} from "../lib/exploreEvents";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler-run.svg";
 import padelIcon from "../assets/Vector.svg";
@@ -20,6 +24,8 @@ const fallbackImages = {
     "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=900&q=80",
   basket:
     "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=900&q=80",
+  basketball:
+    "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=900&q=80",
 };
 
 const tagIcons = {
@@ -28,6 +34,7 @@ const tagIcons = {
   lob: runIcon,
   padel: padelIcon,
   basket: basketIcon,
+  basketball: basketIcon,
 };
 
 const demoEvents = {
@@ -212,6 +219,18 @@ function getDescription(item) {
   );
 }
 
+function readSeededJoinedEventIds() {
+  try {
+    const storedIds = JSON.parse(
+      localStorage.getItem(SEEDED_EXPLORE_EVENT_JOIN_KEY) || "[]",
+    );
+
+    return Array.isArray(storedIds) ? storedIds : [];
+  } catch {
+    return [];
+  }
+}
+
 export default function EventDetailPage() {
   const { eventId } = useParams();
   const navigate = useNavigate();
@@ -224,6 +243,17 @@ export default function EventDetailPage() {
     async function fetchEvent() {
       setIsJoined(false);
       setLoading(true);
+
+      const seededEvent = getSeededExploreEvent(eventId);
+
+      if (seededEvent) {
+        const storedIds = readSeededJoinedEventIds();
+        setEvent(seededEvent);
+        setIsJoined(storedIds.includes(eventId));
+        setError("");
+        setLoading(false);
+        return;
+      }
 
       if (demoEvents[eventId]) {
         setEvent(demoEvents[eventId]);
@@ -270,6 +300,30 @@ export default function EventDetailPage() {
   async function handleJoinToggle() {
     if (isOrganizer) {
       navigate(`/opret?id=${eventId}`);
+      return;
+    }
+
+    if (event?.isSeededExploreEvent) {
+      const currentIds = readSeededJoinedEventIds();
+      const nextIsJoined = !isJoined;
+      const nextIds = nextIsJoined
+        ? [...new Set([...currentIds, event.id])]
+        : currentIds.filter((id) => id !== event.id);
+
+      localStorage.setItem(
+        SEEDED_EXPLORE_EVENT_JOIN_KEY,
+        JSON.stringify(nextIds),
+      );
+      setIsJoined(nextIsJoined);
+      setError("");
+
+      if (nextIsJoined) {
+        window.dispatchEvent(new CustomEvent("lynk:show-loading"));
+        window.setTimeout(() => {
+          navigate(`/event-tilmeldt/${eventId}`);
+        }, 1900);
+      }
+
       return;
     }
 

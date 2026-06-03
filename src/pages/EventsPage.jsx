@@ -1,7 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router";
-import { supabase } from "../lib/supabaseClient";
-import { DEMO_USER_ID } from "../lib/demoUser";
+import {
+  SEEDED_EXPLORE_EVENT_JOIN_KEY,
+  seededExploreEvents,
+} from "../lib/exploreEvents";
+import { getEventStartDate } from "../utils/eventDates";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler-run.svg";
 import padelIcon from "../assets/Vector.svg";
@@ -31,12 +34,21 @@ const fallbackImages = {
     "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=640&q=80",
   "lob":
     "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&w=640&q=80",
+  "padel":
+    "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=640&q=80",
+  "basketball":
+    "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=640&q=80",
+  "basket":
+    "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=640&q=80",
 };
 
 const tagIcons = {
   "fodbold": soccerIcon,
   "løb": runIcon,
   "lob": runIcon,
+  "padel": padelIcon,
+  "basketball": basketIcon,
+  "basket": basketIcon,
 };
 
 function normalizeTag(tag) {
@@ -70,11 +82,23 @@ function getEventSpots(item) {
   return "1/22";
 }
 
+function readSeededJoinedEventIds() {
+  try {
+    const storedIds = JSON.parse(
+      localStorage.getItem(SEEDED_EXPLORE_EVENT_JOIN_KEY) || "[]",
+    );
+
+    return Array.isArray(storedIds) ? storedIds : [];
+  } catch {
+    return [];
+  }
+}
+
 export default function EventsPage() {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [joinedEventIds, setJoinedEventIds] = useState([]);
+  const [seededJoinedEventIds, setSeededJoinedEventIds] = useState(
+    readSeededJoinedEventIds,
+  );
   const [showFilters, setShowFilters] = useState(false);
   const [showSort, setShowSort] = useState(false);
   const [sortBy, setSortBy] = useState("soonest");
@@ -84,8 +108,7 @@ export default function EventsPage() {
     mood: "Alle",
     date: "",
   });
-  const sharedEventImage = events[0] ? getEventImage(events[0]) : "";
-  const filteredEvents = events
+  const filteredEvents = seededExploreEvents
     .filter((item) => {
       const activity = normalizeTag(item.activity_type || item.tag);
       const mood = normalizeTag(item.level);
@@ -107,7 +130,7 @@ export default function EventsPage() {
         return new Date(b.created_at || 0) - new Date(a.created_at || 0);
       }
 
-      return normalizeTag(a.date).localeCompare(normalizeTag(b.date), "da");
+      return getEventStartDate(a).getTime() - getEventStartDate(b).getTime();
     });
 
   function resetFilters() {
@@ -119,87 +142,27 @@ export default function EventsPage() {
     });
   }
 
-  const fetchEvents = useCallback(async () => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from("events")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (error) {
-      setError(error.message);
-      setEvents([]);
-    } else {
-      setEvents(data || []);
-      setError("");
-    }
-    setLoading(false);
-  }, []);
-
-  const fetchJoinedEvents = useCallback(async () => {
-    const { data, error } = await supabase
-      .from("event_participants")
-      .select("event_id")
-      .eq("user_id", DEMO_USER_ID)
-      .eq("status", "joined");
-
-    if (error) {
-      setError(error.message);
-      setJoinedEventIds([]);
-      return;
-    }
-
-    setJoinedEventIds((data || []).map((item) => item.event_id));
-  }, []);
-
-  async function handleJoinEvent(item) {
-    const eventId = item.ID;
-
-    if (!eventId) {
-      setError("Eventet mangler et UUID og kan ikke tilmeldes.");
-      return;
-    }
-
-    const isJoined = joinedEventIds.includes(eventId);
-
-    if (isJoined) {
-      const { error } = await supabase
-        .from("event_participants")
-        .delete()
-        .eq("event_id", eventId)
-        .eq("user_id", DEMO_USER_ID);
-
-      if (error) {
-        setError(error.message);
-        return;
-      }
-
-      setJoinedEventIds((current) => current.filter((id) => id !== eventId));
-      setError("");
-      return;
-    }
-
-    const { error } = await supabase.from("event_participants").insert({
-      event_id: eventId,
-      user_id: DEMO_USER_ID,
-      status: "joined",
-    });
-
-    if (error) {
-      setError(error.message);
-      return;
-    }
-
-    setJoinedEventIds((current) => [...new Set([...current, eventId])]);
-    setError("");
+  function persistSeededJoinedEventIds(nextIds) {
+    setSeededJoinedEventIds(nextIds);
+    localStorage.setItem(
+      SEEDED_EXPLORE_EVENT_JOIN_KEY,
+      JSON.stringify(nextIds),
+    );
   }
 
-  useEffect(() => {
-    void Promise.resolve().then(async () => {
-      await fetchEvents();
-      await fetchJoinedEvents();
-    });
-  }, [fetchEvents, fetchJoinedEvents]);
+  function isEventJoined(item) {
+    return seededJoinedEventIds.includes(item.id);
+  }
+
+  async function handleJoinEvent(item) {
+    const isJoined = seededJoinedEventIds.includes(item.id);
+    const nextIds = isJoined
+      ? seededJoinedEventIds.filter((id) => id !== item.id)
+      : [...new Set([...seededJoinedEventIds, item.id])];
+
+    persistSeededJoinedEventIds(nextIds);
+    setError("");
+  }
 
   return (
     <div className="events-page">
@@ -335,9 +298,7 @@ export default function EventsPage() {
       )}
 
       <section className="events-list">
-        {loading ? (
-          <p>Henter events...</p>
-        ) : filteredEvents.length === 0 ? (
+        {filteredEvents.length === 0 ? (
           <p>Ingen events fundet.</p>
         ) : (
           <div className="explore-event-list">
@@ -351,7 +312,7 @@ export default function EventsPage() {
                   className="explore-card-image explore-card-link"
                 >
                   <img
-                    src={sharedEventImage || getEventImage(item)}
+                    src={getEventImage(item)}
                     alt={item.title}
                     loading="lazy"
                   />
@@ -394,11 +355,11 @@ export default function EventsPage() {
                     <button
                       type="button"
                       className={`join-btn${
-                        joinedEventIds.includes(item.ID) ? " is-joined" : ""
+                        isEventJoined(item) ? " is-joined" : ""
                       }`}
                       onClick={() => handleJoinEvent(item)}
                     >
-                      {joinedEventIds.includes(item.ID) ? "Tilmeldt" : "Join"}
+                      {isEventJoined(item) ? "Tilmeldt" : "Join"}
                     </button>
                   </div>
                 </div>
