@@ -3662,8 +3662,124 @@ main {
   line-height: 1.2;
 }
 
+.profile-trust {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1.05rem 1.25rem 0;
+}
+
+.profile-rating-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(238, 245, 242, 0.14);
+  border-radius: 12px;
+  background: rgba(8, 16, 16, 0.88);
+}
+
+.profile-rating-label {
+  display: block;
+  color: rgba(238, 245, 242, 0.62);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.profile-rating-score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.22rem;
+  margin-top: 0.18rem;
+}
+
+.profile-rating-score strong {
+  color: var(--text-primary);
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-size: 2.35rem;
+  line-height: 0.95;
+}
+
+.profile-rating-score span {
+  color: rgba(238, 245, 242, 0.58);
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+.profile-stars {
+  display: flex;
+  gap: 0.12rem;
+  margin-top: 0.38rem;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.profile-rating-card p {
+  max-width: 6.2rem;
+  margin: 0;
+  color: rgba(238, 245, 242, 0.68);
+  font-size: 0.82rem;
+  line-height: 1.22;
+  text-align: right;
+}
+
+.profile-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.profile-badges span {
+  min-height: 1.72rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.7rem;
+  border: 1px solid rgba(215, 242, 91, 0.34);
+  border-radius: 999px;
+  background: rgba(215, 242, 91, 0.11);
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.hosted-ratings {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.95rem;
+  border: 1px solid rgba(238, 245, 242, 0.12);
+  border-radius: 12px;
+  background: rgba(11, 17, 18, 0.72);
+}
+
+.hosted-ratings h2 {
+  margin: 0 0 0.15rem;
+  color: var(--text-primary);
+  font-size: 0.98rem;
+  line-height: 1.1;
+}
+
+.hosted-rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(238, 245, 242, 0.08);
+}
+
+.hosted-rating-row span {
+  color: rgba(238, 245, 242, 0.68);
+  font-size: 0.84rem;
+}
+
+.hosted-rating-row strong {
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
 .profile-feedback {
-  padding: 2.45rem 0 0;
+  padding: 1.65rem 0 0;
 }
 
 .profile-section-title {
