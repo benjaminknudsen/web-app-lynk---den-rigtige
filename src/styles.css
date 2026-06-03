@@ -1131,52 +1131,20 @@ nav {
 }
 
 .meta-icon {
-  position: relative;
   width: 1.2rem;
   height: 1.2rem;
   flex: 0 0 auto;
-  color: rgba(238, 245, 242, 0.66);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .location-icon {
-  border: 3px solid currentColor;
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-}
-
-.location-icon::after {
-  content: "";
-  position: absolute;
-  inset: 0.27rem;
-  border-radius: 50%;
-  background: currentColor;
+  background-image: url("./assets/lokationnn.png");
 }
 
 .time-icon {
-  border: 3px solid currentColor;
-  border-radius: 50%;
-}
-
-.time-icon::before,
-.time-icon::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 3px;
-  border-radius: 999px;
-  background: currentColor;
-  transform-origin: 50% 0;
-}
-
-.time-icon::before {
-  height: 0.38rem;
-  transform: translate(-50%, -0.38rem);
-}
-
-.time-icon::after {
-  height: 0.31rem;
-  transform: translate(-50%, 0) rotate(135deg);
+  background-image: url("./assets/tiddd.png");
 }
 
 .explore-card-footer {
@@ -2301,43 +2269,9 @@ nav {
 }
 
 .mine-calendar-icon {
-  position: relative;
   width: 2.65rem;
   height: 2.65rem;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: rgba(215, 242, 91, 0.2);
-  color: var(--accent);
-}
-
-.mine-stat-card-attending .mine-calendar-icon {
-  background: rgba(40, 139, 197, 0.34);
-  color: #eef5f2;
-}
-
-.mine-calendar-icon::before {
-  content: "";
-  width: 1.16rem;
-  height: 1.02rem;
-  border: 3px solid currentColor;
-  border-radius: 0.18rem;
-  background:
-    linear-gradient(currentColor, currentColor) 0.22rem 0.34rem / 0.88rem 2px
-      no-repeat,
-    linear-gradient(currentColor, currentColor) 0 0.48rem / 100% 3px no-repeat;
-}
-
-.mine-calendar-icon::after {
-  content: "";
-  position: absolute;
-  top: 0.9rem;
-  left: 0.91rem;
-  width: 0.16rem;
-  height: 0.38rem;
-  border-radius: 999px;
-  background: currentColor;
-  box-shadow: 0.8rem 0 0 currentColor;
+  object-fit: contain;
 }
 
 .mine-created-events {
