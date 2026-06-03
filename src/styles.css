@@ -1229,6 +1229,11 @@ nav {
   transform: translateY(1px);
 }
 
+.join-btn.is-joined {
+  background: var(--accent);
+  color: #101615;
+}
+
 .events-form form {
   display: grid;
   gap: 1rem;

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { supabase } from "../lib/supabaseClient";
+import { DEMO_USER_ID } from "../lib/demoUser";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import padelIcon from "../assets/Vector.svg";
@@ -217,6 +218,7 @@ export default function CreateEventPage() {
       capacity: Number.isNaN(capacity) ? null : capacity,
       description: form.description || null,
       image: form.image || null,
+      user_id: DEMO_USER_ID,
     };
 
     if (editMode && eventId) {
