@@ -5,6 +5,8 @@ import { DEMO_USER_ID } from "../lib/demoUser";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import activityPhoto from "../assets/image 28.png";
+import createdEventsIcon from "../assets/eventskalender1.png";
+import attendingEventsIcon from "../assets/eventskalender2.png";
 
 const fallbackImages = {
   fodbold: activityPhoto,
@@ -234,12 +236,22 @@ export default function MineEventsPage() {
         </div>
         <div className="mine-stats-grid">
           <article className="mine-stat-card mine-stat-card-created">
-            <span className="mine-calendar-icon" aria-hidden="true" />
+            <img
+              src={createdEventsIcon}
+              alt=""
+              className="mine-calendar-icon"
+              aria-hidden="true"
+            />
             <strong>{upcomingCount}</strong>
             <p>Du har oprettet kommende events</p>
           </article>
           <article className="mine-stat-card mine-stat-card-attending">
-            <span className="mine-calendar-icon" aria-hidden="true" />
+            <img
+              src={attendingEventsIcon}
+              alt=""
+              className="mine-calendar-icon"
+              aria-hidden="true"
+            />
             <strong>{attendingCount}</strong>
             <p>Du deltager i kommende events</p>
           </article>
