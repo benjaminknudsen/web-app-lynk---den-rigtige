@@ -2,8 +2,15 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { supabase } from "../lib/supabaseClient";
 import { DEMO_USER_ID } from "../lib/demoUser";
+import {
+  SEEDED_EXPLORE_EVENT_JOIN_KEY,
+  seededExploreEvents,
+} from "../lib/exploreEvents";
+import { sortEventsByStartDate } from "../utils/eventDates";
 import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler-run.svg";
+import padelIcon from "../assets/Vector.svg";
+import basketIcon from "../assets/carbon-basketball.svg";
 import activityPhoto from "../assets/image-28.png";
 import createdEventsIcon from "../assets/events-created-icon.png";
 import attendingEventsIcon from "../assets/events-attending-icon.png";
@@ -25,6 +32,9 @@ const tagIcons = {
   fodbold: soccerIcon,
   "løb": runIcon,
   lob: runIcon,
+  padel: padelIcon,
+  basket: basketIcon,
+  basketball: basketIcon,
 };
 
 function normalizeTag(tag) {
@@ -85,6 +95,22 @@ function getEventDateParts(date = "") {
   return { ...fallback, time: timePart || date };
 }
 
+function getJoinedSeededExploreEvents() {
+  try {
+    const storedIds = JSON.parse(
+      localStorage.getItem(SEEDED_EXPLORE_EVENT_JOIN_KEY) || "[]",
+    );
+
+    if (!Array.isArray(storedIds)) {
+      return [];
+    }
+
+    return seededExploreEvents.filter((event) => storedIds.includes(event.id));
+  } catch {
+    return [];
+  }
+}
+
 export default function MineEventsPage() {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
@@ -105,7 +131,7 @@ export default function MineEventsPage() {
       setError(error.message);
       setEvents([]);
     } else {
-      setEvents(data || []);
+      setEvents(sortEventsByStartDate(data || []));
       setError("");
     }
     setLoading(false);
@@ -122,9 +148,12 @@ export default function MineEventsPage() {
 
     if (error) {
       setError(error.message);
-      setAttendingEvents([]);
+      setAttendingEvents(sortEventsByStartDate(getJoinedSeededExploreEvents()));
     } else {
-      setAttendingEvents((data || []).map((item) => item.events).filter(Boolean));
+      setAttendingEvents(sortEventsByStartDate([
+        ...getJoinedSeededExploreEvents(),
+        ...(data || []).map((item) => item.events).filter(Boolean),
+      ]));
       setError("");
     }
     setAttendingLoading(false);
