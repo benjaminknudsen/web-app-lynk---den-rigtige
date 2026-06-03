@@ -90,6 +90,7 @@ export default function MineEventsPage() {
   const [loading, setLoading] = useState(true);
   const [attendingLoading, setAttendingLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deleteCandidate, setDeleteCandidate] = useState(null);
 
   const fetchEvents = useCallback(async () => {
     setLoading(true);
@@ -143,6 +144,15 @@ export default function MineEventsPage() {
     } else {
       refreshMineEvents();
     }
+
+    if (res.error) {
+      setError(res.error.message);
+      setDeleteCandidate(null);
+      return;
+    }
+
+    setDeleteCandidate(null);
+    fetchEvents();
   }
 
   function handleEdit(item) {
