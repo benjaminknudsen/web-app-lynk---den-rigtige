@@ -295,6 +295,8 @@ export default function EventDetailPage() {
       return;
     }
 
+    window.dispatchEvent(new CustomEvent("lynk:show-loading"));
+
     const { error } = await supabase.from("event_participants").insert({
       event_id: event.ID,
       user_id: DEMO_USER_ID,
@@ -308,6 +310,9 @@ export default function EventDetailPage() {
 
     setIsJoined(true);
     setError("");
+    window.setTimeout(() => {
+      navigate(`/event-tilmeldt/${eventId}`);
+    }, 1900);
   }
 
   const tag = normalizeTag(event?.tag);
