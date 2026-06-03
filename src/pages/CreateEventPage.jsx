@@ -33,12 +33,12 @@ const activityOptions = [
 ];
 
 const levelOptions = ["Casual", "Motion", "Seriøst"];
+const tagOptions = ["Udendørs", "Begyndervenligt", "Indendørs", "Pulsen op"];
 const levelIcons = {
   Casual: smileyIcon,
   Motion: motionIcon,
   Seriøst: seriousIcon,
 };
-const editTags = ["Casual", "Udendørs", "Good vibes"];
 const editHeroFallback =
   "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80";
 const eventParticipants = [
@@ -61,6 +61,21 @@ function splitDateValue(value = "") {
   };
 }
 
+function normalizeEventTags(tags) {
+  if (Array.isArray(tags)) {
+    return tags.filter(Boolean);
+  }
+
+  if (typeof tags === "string") {
+    return tags
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
 export default function CreateEventPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -77,6 +92,8 @@ export default function CreateEventPage() {
     capacity: "",
     description: "",
     image: "",
+    tags: [],
+    newTag: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -129,6 +146,8 @@ export default function CreateEventPage() {
       capacity: data.capacity || "",
       description: data.description || "",
       image: data.image || "",
+      tags: normalizeEventTags(data.tags),
+      newTag: "",
     });
     setEditMode(true);
     setIsPrivate(false);
@@ -157,6 +176,8 @@ export default function CreateEventPage() {
           capacity: "",
           description: "",
           image: "",
+          tags: [],
+          newTag: "",
         });
       }
     });
@@ -203,6 +224,41 @@ export default function CreateEventPage() {
     setForm((currentForm) => ({ ...currentForm, [field]: value }));
   }
 
+  function toggleTag(tag) {
+    setForm((currentForm) => {
+      const exists = currentForm.tags.includes(tag);
+
+      return {
+        ...currentForm,
+        tags: exists
+          ? currentForm.tags.filter((item) => item !== tag)
+          : [...currentForm.tags, tag],
+      };
+    });
+  }
+
+  function addCustomTag() {
+    const tag = form.newTag.trim();
+
+    if (!tag || form.tags.includes(tag)) {
+      updateForm("newTag", "");
+      return;
+    }
+
+    setForm((currentForm) => ({
+      ...currentForm,
+      tags: [...currentForm.tags, tag],
+      newTag: "",
+    }));
+  }
+
+  function removeTag(tag) {
+    setForm((currentForm) => ({
+      ...currentForm,
+      tags: currentForm.tags.filter((item) => item !== tag),
+    }));
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     setSuccess("");
@@ -224,6 +280,7 @@ export default function CreateEventPage() {
       description: form.description || null,
       image: form.image || null,
       user_id: DEMO_USER_ID,
+      tags: form.tags,
     };
 
     if (editMode && eventId) {
@@ -269,6 +326,8 @@ export default function CreateEventPage() {
       capacity: "",
       description: "",
       image: "",
+      tags: [],
+      newTag: "",
     });
     setSuccess("Event oprettet!");
     setTimeout(() => {
@@ -418,15 +477,40 @@ export default function CreateEventPage() {
 
             <div className="edit-tags-block">
               <span>Tags</span>
+              <div className="tag-choice-row">
+                {tagOptions.map((tag) => (
+                  <button
+                    type="button"
+                    key={tag}
+                    className={form.tags.includes(tag) ? "selected" : ""}
+                    onClick={() => toggleTag(tag)}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
               <div className="edit-tags-row">
-                {editTags.map((tag) => (
-                  <button type="button" key={tag}>
+                {form.tags.map((tag) => (
+                  <button type="button" key={tag} onClick={() => removeTag(tag)}>
                     {tag}
                     <span aria-hidden="true" />
                   </button>
                 ))}
-                <button type="button" className="edit-add-tag" aria-label="Tilføj tag">
-                  +
+              </div>
+              <div className="custom-tag-field">
+                <input
+                  value={form.newTag}
+                  onChange={(e) => updateForm("newTag", e.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      addCustomTag();
+                    }
+                  }}
+                  placeholder="Tilføj eget tag..."
+                />
+                <button type="button" onClick={addCustomTag}>
+                  Tilføj
                 </button>
               </div>
             </div>
@@ -758,6 +842,51 @@ export default function CreateEventPage() {
                         {level}
                       </button>
                     ))}
+                  </div>
+                </div>
+                <div className="create-field-group">
+                  <span>Tags</span>
+                  <div className="tag-choice-row">
+                    {tagOptions.map((tag) => (
+                      <button
+                        type="button"
+                        key={tag}
+                        className={form.tags.includes(tag) ? "selected" : ""}
+                        onClick={() => toggleTag(tag)}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                  {form.tags.length > 0 && (
+                    <div className="edit-tags-row selected-tags-row">
+                      {form.tags.map((tag) => (
+                        <button
+                          type="button"
+                          key={tag}
+                          onClick={() => removeTag(tag)}
+                        >
+                          {tag}
+                          <span aria-hidden="true" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  <div className="custom-tag-field">
+                    <input
+                      value={form.newTag}
+                      onChange={(e) => updateForm("newTag", e.target.value)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                          event.preventDefault();
+                          addCustomTag();
+                        }
+                      }}
+                      placeholder="Tilføj eget tag..."
+                    />
+                    <button type="button" onClick={addCustomTag}>
+                      Tilføj
+                    </button>
                   </div>
                 </div>
                 <label>
