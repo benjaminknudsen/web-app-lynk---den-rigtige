@@ -330,9 +330,10 @@ export default function CreateEventPage() {
       newTag: "",
     });
     setSuccess("Event oprettet!");
+    window.dispatchEvent(new CustomEvent("lynk:show-loading"));
     setTimeout(() => {
-      navigate("/mineevents");
-    }, 900);
+      navigate("/event-oprettet");
+    }, 1900);
   }
 
   async function handleDeleteEvent() {
