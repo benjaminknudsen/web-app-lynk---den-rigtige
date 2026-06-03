@@ -5,6 +5,11 @@ import soccerIcon from "../assets/soccer.svg";
 import runIcon from "../assets/tabler_run.svg";
 import padelIcon from "../assets/Vector.svg";
 import basketIcon from "../assets/carbon_basketball.svg";
+import fitnessIcon from "../assets/maki_fitness-centre.svg";
+import cyclingIcon from "../assets/sportsgren.svg";
+import yogaIcon from "../assets/yoga.svg";
+import badmintonIcon from "../assets/badminton.svg";
+import dotsIcon from "../assets/tabler_dots.svg";
 import cancelIcon from "../assets/Aflys.svg";
 import organizerIcon from "../assets/Arrangør.svg";
 import motionIcon from "../assets/motions.svg";
@@ -19,11 +24,11 @@ const activityOptions = [
   { name: "Padel", icon: padelIcon },
   { name: "Løb", icon: runIcon },
   { name: "Basketball", icon: basketIcon },
-  { name: "Fitness", icon: null },
-  { name: "Cykling", icon: null },
-  { name: "Yoga", icon: null },
-  { name: "Badminton", icon: null },
-  { name: "Andet", icon: null },
+  { name: "Fitness", icon: fitnessIcon },
+  { name: "Cykling", icon: cyclingIcon },
+  { name: "Yoga", icon: yogaIcon },
+  { name: "Badminton", icon: badmintonIcon },
+  { name: "Andet", icon: dotsIcon },
 ];
 
 const levelOptions = ["Casual", "Motion", "Seriøst"];
